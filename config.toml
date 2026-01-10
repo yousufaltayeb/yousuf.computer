@@ -45,6 +45,7 @@ menu_items = [
     # set newtab to true to make the link open in new tab
     { name = "github", url = "https://github.com/YousifEltayeb", newtab = true },
     { name = "linkedin", url = "https://linkedin.com/in/YousifEltayeb", newtab = true },
+    { name = "قبيلة", url = "https://qabilah.com/profile/yousifeltayeb/posts", newtab = true },
 ]
 # The theme supports feeds (RSS and ATOM)
 generate_feeds = true
