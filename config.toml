@@ -14,14 +14,15 @@ default_language = "en"
 
 # Code highlighting
 [markdown]
-highlighting = true
-highlight_theme = "boron"
+
+[markdown.highlighting]
+theme = "boron"
 
 [extra]
 # Put all your custom variables here
 
 # The logo text - defaults to "Terminimal theme"
-logo_text = "Yousif Eltayeb"
+logo_text = "Yousuf Altayeb"
 
 # The logo link - defaults to base_url.
 # logo_home_link = "/take/me/away!"
@@ -29,7 +30,7 @@ logo_text = "Yousif Eltayeb"
 # Author name: when specified, modifies the default
 # copyright text. Apart from author, it will
 # contain current year and a link to the theme.
-author = "Yousif"
+author = "Yousuf"
 
 
 # menu is enabled by adding menu_items (optional)
