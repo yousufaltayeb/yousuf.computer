@@ -14,7 +14,7 @@ default_language = "en"
 
 # Code highlighting
 [markdown]
-highlight_code = true
+highlighting = true
 highlight_theme = "boron"
 
 [extra]
