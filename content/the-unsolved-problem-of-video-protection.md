@@ -7,11 +7,11 @@ tags = ["video", "drm", "security", "streaming", "web-development"]
 lang = "en"
 +++
 
-# The Unsolved Problem Of Video Protection (For Developers)
+# The Unsolved Problem Of Video Protection
 
 If someone can watch your video, they can steal your video.
 
-Mux says it bluntly, and they’re right. From a developer’s point of view, “video security” is not about creating an unstealable asset. It’s about controlling *who* gets to watch, *how* they access it, and *how much work* it takes to copy or redistribute.
+Mux says it bluntly, and they’re right. From a developer’s point of view, “video security” is not about creating an unstealable asset. It’s about controlling _who_ gets to watch, _how_ they access it, and _how much work_ it takes to copy or redistribute.
 
 This post is a practical map for engineers:
 
@@ -26,7 +26,8 @@ This post is a practical map for engineers:
 
 Before picking tools, you need a threat model. The Mux article lays out the main vectors well:
 
-1. **Hotlinking / re-embedding**  
+1. **Hotlinking / re-embedding**
+
    - Flow:
      - User logs in legitimately, opens page with video.
      - Opens devtools, finds the HLS/DASH/MP4 URL.
@@ -35,18 +36,20 @@ Before picking tools, you need a threat model. The Mux article lays out the main
      - You pay egress; they get traffic and ad revenue.
      - Bypasses your auth stack entirely once URL is known.
 
-2. **Direct downloads**  
+2. **Direct downloads**
+
    - MP4:
      - Single HTTP GET -> file saved -> done.
    - HLS/DASH:
      - Parse the manifest (`.m3u8`/`.mpd`).
      - Download all segments, remux to MP4 using `ffmpeg`, `yt-dlp`, browser extensions, etc.
 
-3. **Software screen recording**  
+3. **Software screen recording**
+
    - Built-in or third-party recorders capture composited frames.
    - On a non-DRM setup, they see what the user sees.
 
-4. **Physical re-recording**  
+4. **Physical re-recording**
    - External camera pointed at a display.
    - Zero software hooks. No OS, no browser, no player in the loop.
 
@@ -187,7 +190,7 @@ Realistically, Tier 1 + 1.5 will block casual freeloaders and bots, and gives yo
 
 Kinescope’s AES-128 vs DRM discussion hits an important nuance developers often miss:
 
-> Encrypting segments with AES-128 and giving the client the key is *not* the same as DRM.
+> Encrypting segments with AES-128 and giving the client the key is _not_ the same as DRM.
 
 ### Standard AES-128 HLS flow
 
@@ -206,7 +209,7 @@ Kinescope’s AES-128 vs DRM discussion hits an important nuance developers ofte
 
 ### Security properties
 
-- If someone only has your *storage* (e.g., raw `.ts` or `.mp4` segments) but not the key server, they can’t decode easily.
+- If someone only has your _storage_ (e.g., raw `.ts` or `.mp4` segments) but not the key server, they can’t decode easily.
 - If you serve keys via HTTPS from a separate origin with access control, you get some “defense in depth” around misconfigurations.
 
 But the key reality:
@@ -218,7 +221,7 @@ But the key reality:
   - Hooking/instrumentation tools,
   - Modified players.
 
-In an era where HTTPS is mandatory anyway, AES-128 HLS mostly protects *at rest* and in some infra breach scenarios—not against end-user copying.
+In an era where HTTPS is mandatory anyway, AES-128 HLS mostly protects _at rest_ and in some infra breach scenarios—not against end-user copying.
 
 It’s worth using in some setups (especially if you’re worried about bucket exposure or need a compliance checkbox), but don’t confuse it with “solved security.”
 
@@ -254,7 +257,7 @@ At a high level:
 - You can control device classes and outputs (e.g., no 4K over insecure HDMI).
 - Combined with entropy/watermarking, leaks are more traceable.
 
-### What it does *not* solve
+### What it does _not_ solve
 
 - Someone filming the screen with an external camera.
 - Credential sharing and account reselling (that’s a business/policy issue).
@@ -275,7 +278,7 @@ At a high level:
 - **Cost:**
   - Many DRM providers license per device/stream.
 
-For developers, the main question is *when* the business risk justifies this level of investment. For many SaaS or course platforms, the answer is “not yet.”
+For developers, the main question is _when_ the business risk justifies this level of investment. For many SaaS or course platforms, the answer is “not yet.”
 
 ---
 
@@ -306,6 +309,7 @@ If you’re building Netflix-class security, this is on the table. For most deve
 Here’s a pragmatic starting point when you’re choosing protection levels:
 
 1. **What’s the content value?**
+
    - Public, marketing, or free community content:
      - Don’t overbuild. Host on a solid platform/CDN.
    - Paid, but not existential:
@@ -314,6 +318,7 @@ Here’s a pragmatic starting point when you’re choosing protection levels:
      - Licensed films, live sports, region-limited TV, regulated sectors.
 
 2. **Who is the attacker?**
+
    - Casual freeloaders (people posting URLs around, running simple downloaders).
    - Motivated pirates (building mirror sites, selling access, evading detection).
    - Insider threats / storage breach (S3 buckets exposed, etc.).
@@ -323,9 +328,11 @@ Here’s a pragmatic starting point when you’re choosing protection levels:
 From there:
 
 - If content is low-risk:
+
   - Use robust hosting, maybe signed URLs for metrics/abuse control, and stop there.
 
 - If content is paywalled but not highly sensitive:
+
   - Implement:
     - Auth + signed URLs (with embedded user/session IDs).
     - Basic referrer and User-Agent filtering for web.
@@ -342,3 +349,11 @@ From there:
 In all cases, remember the one immutable constraint:
 
 > A perfect “unstealable” video pipeline is impossible. Your job is to make abuse sufficiently expensive, detectable, and rare.
+
+---
+
+## References
+
+- Mux – If someone can watch it, they can steal it: securing video content on the internet: https://www.mux.com/blog/if-someone-can-watch-it-they-can-steal-it-securing-video-content-on-the-internet
+- Screencasting.com – Cheap video hosting: https://screencasting.com/articles/cheap-video-hosting
+- Kinescope – DRM encryption and AES-128 vs DRM protection: https://www.kinescope.com/blog/drm-encryption#aes128-protection-vs-drm-solution-protection
