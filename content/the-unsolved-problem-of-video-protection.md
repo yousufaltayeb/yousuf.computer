@@ -1,5 +1,5 @@
 +++
-title = "The Unsolved Problem Of Video Protection (For Developers)"
+title = "The Unsolved Problem Of Video Protection"
 date = 2026-01-18
 [taxonomies]
 tags = ["video", "drm", "security", "streaming", "web-development"]
@@ -11,9 +11,9 @@ lang = "en"
 
 If someone can watch your video, they can steal your video.
 
-Mux says it bluntly, and they’re right. From a developer’s point of view, “video security” is not about creating an unstealable asset. It’s about controlling _who_ gets to watch, _how_ they access it, and _how much work_ it takes to copy or redistribute.
+Playback requires delivering and decoding the content on a user-controlled device, any protection can be bypassed or the screen can be re-recorded, so you can only raise the cost, not eliminate copying.
 
-This post is a practical map for engineers:
+In this post I'll go over:
 
 - what attackers actually do,
 - what each protection mechanism really buys you,
@@ -24,7 +24,7 @@ This post is a practical map for engineers:
 
 ## Threat Model: How People Actually Steal Video
 
-Before picking tools, you need a threat model. The Mux article lays out the main vectors well:
+Before picking tools, you need a threat model. Let's lay out the main vectors:
 
 1. **Hotlinking / re-embedding**
 
@@ -61,14 +61,14 @@ Everything you implement is about raising the bar to the point where only that l
 
 ## Cost Model: What Security Really Costs You
 
-From the Mux perspective, the “cost of security” has four dimensions you, as a dev, will feel:
+The “cost of security” has four dimensions you will feel:
 
 - **Development:** integrating tokens, DRM, restrictions, license servers.
 - **Maintenance:** adapting to SDK/OS/browser/API changes.
 - **Playback errors:** more moving parts -> more reasons for legitimate viewers to hit errors.
 - **Dollars:** DRM vendors, watermarking, higher-touch hosting, support.
 
-On top of that, as Screencasting.com emphasizes when talking “cheap video hosting”: you still need to keep basic hosting costs and complexity under control. No one wants a “secure” system that collapses under normal traffic, or a bandwidth bill that dwarfs your product revenue.
+On top of that, when talking “cheap video hosting”: you still need to keep basic hosting costs and complexity under control. No one wants a “secure” system that collapses under normal traffic, or a bandwidth bill that dwarfs your product revenue.
 
 So instead of asking “How do we lock this down completely?”, a better developer question is:
 
@@ -100,7 +100,7 @@ Security posture here is minimal, but not zero: you get obscurity and throttling
 
 ## Tier 1: Auth + Signed URLs (The Sensible Default)
 
-The first serious layer every developer should consider is tokenized access, as outlined in Mux’s “time-based signed URLs.”
+The first serious layer every developer should consider is tokenized access.
 
 ### What it is
 
@@ -120,7 +120,7 @@ The first serious layer every developer should consider is tokenized access, as 
 - Permanent working links that circulate forever.
 - Some link-sharing: once expired, that exact URL is dead.
 
-### Dev details to get right
+### Details to get right
 
 - **Token duration:**
   - Keep it short enough to limit abuse (e.g., 1–4 hours).
@@ -148,7 +148,7 @@ But in terms of “bang for buck,” signed URLs are arguably the #1 measure for
 
 ## Tier 1.5: Referrer & User-Agent Filtering (Soft Filters)
 
-Mux calls these out as supporting protections that are easy to bolt on.
+These are supporting protections that are easy to bolt on.
 
 ### Referrer checks
 
@@ -304,7 +304,7 @@ If you’re building Netflix-class security, this is on the table. For most deve
 
 ---
 
-## Putting It All Together: A Developer’s Decision Tree
+## Decision Tree
 
 Here’s a pragmatic starting point when you’re choosing protection levels:
 
@@ -354,6 +354,6 @@ In all cases, remember the one immutable constraint:
 
 ## References
 
-- Mux – If someone can watch it, they can steal it: securing video content on the internet: https://www.mux.com/blog/if-someone-can-watch-it-they-can-steal-it-securing-video-content-on-the-internet
-- Screencasting.com – Cheap video hosting: https://screencasting.com/articles/cheap-video-hosting
-- Kinescope – DRM encryption and AES-128 vs DRM protection: https://www.kinescope.com/blog/drm-encryption#aes128-protection-vs-drm-solution-protection
+- Mux – If someone can watch it, they can steal it: securing video content on the internet: <https://www.mux.com/blog/if-someone-can-watch-it-they-can-steal-it-securing-video-content-on-the-internet>
+- Screencasting.com – Cheap video hosting: <https://screencasting.com/articles/cheap-video-hosting>
+- Kinescope – DRM encryption and AES-128 vs DRM protection: <https://www.kinescope.com/blog/drm-encryption#aes128-protection-vs-drm-solution-protection>
