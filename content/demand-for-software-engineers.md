@@ -1,3 +1,12 @@
++++
+title = "AI will increase the demand for software engineers"
+date = 2026-02-04
+[taxonomies]
+tags = ["ai", "software-engineering", "economics"]
+[extra]
+lang = "en"
++++
+
 # AI will increase the demand for software engineers
 
 **AI will increase the demand for software engineers, not decrease it.**
