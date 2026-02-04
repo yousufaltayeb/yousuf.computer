@@ -17,7 +17,7 @@ There’s a solid economic argument for why “better tools” often **increase*
 
 ## Jevons’ paradox in one sentence
 
-When a technology makes a resource more efficient to use, the _effective cost_ of that resource drops—so people and organizations often use **more** of it, sometimes enough to offset the efficiency gains. :contentReference[oaicite:0]{index=6}
+When a technology makes a resource more efficient to use, the _effective cost_ of that resource drops—so people and organizations often use **more** of it, sometimes enough to offset the efficiency gains.
 
 Jevons originally pointed this at coal: making coal-powered industry more efficient didn’t reduce coal use; it helped expand coal-driven production.
 Modern energy-economics work reframes this as rebound effects that can be small or large, but are real enough to matter.
@@ -90,7 +90,7 @@ It claims something narrower:
 
 > If AI lowers the marginal cost of building software, and demand remains highly elastic, total software creation expands—so the need for engineering talent shifts upward and outward (more domains, more products), not to zero.
 
-Even official projections (not AI-specific) still expect strong growth in software developer roles over the next decade. :contentReference[oaicite:5]{index=11}
+Even official projections (not AI-specific) still expect strong growth in software developer roles over the next decade.
 
 I’m not certain this is how it plays out. But “AI replaces engineers” assumes demand for software is basically fixed.
 
@@ -101,5 +101,5 @@ It builds **more**.
 
 ## References
 
-- Jevons’ paradox overview and rebound effect framing :contentReference[oaicite:6]{index=6}
-- BLS outlook for software developers / QA / testers :contentReference[oaicite:11]{index=11}
+- Jevons’ paradox overview: <https://en.wikipedia.org/wiki/Jevons_paradox>
+- BLS outlook for software developers / QA / testers: <https://www.bls.gov/ooh/computer-and-information-technology/software-developers.htm>
