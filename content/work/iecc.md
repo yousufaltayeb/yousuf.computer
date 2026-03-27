@@ -15,3 +15,5 @@ A three-month contract at an engineering consultancy where I handled the full li
 The role was nominally "Document Controller" but the real work was building order out of chaos. I streamlined document workflows by generating daily, weekly, and monthly progress reports and following up on submissions to keep contractors and project timelines in sync.
 
 The part I'm most proud of: I developed a robust archiving system that bridged physical and digital copies with hyperlink indexing. Instead of digging through filing cabinets or nested folder structures, anyone on the project could locate a document in seconds. It sounds simple, but on a large engineering project, that kind of retrieval speed changes how people work.
+
+I also wrote a [Python script](https://github.com/yousufaltayeb/pdf-auto) to automate PDF processing tasks that came up repeatedly in the document control workflow.
