@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Hide scrollbar */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Color System — light default, dark via prefers-color-scheme */
 :root {
   --stone: #282725;
