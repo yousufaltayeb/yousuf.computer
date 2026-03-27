@@ -1,3 +1,13 @@
 .idea/
 public
 node_modules
+
+# Build artifacts
+.next/
+out/
+tsconfig.tsbuildinfo
+
+# Tool files
+.agent/
+.agents/
+skills-lock.json
