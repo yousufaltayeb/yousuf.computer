@@ -7,8 +7,6 @@ tags = ["video", "drm", "security", "streaming", "web-development"]
 lang = "en"
 +++
 
-# The Unsolved Problem Of Video Protection
-
 If someone can watch your video, they can steal your video.
 
 Playback requires delivering and decoding the content on a user-controlled device, any protection can be bypassed or the screen can be re-recorded, so you can only raise the cost, not eliminate copying.

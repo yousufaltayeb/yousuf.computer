@@ -7,10 +7,6 @@ tags = ["ai", "software-engineering", "economics"]
 lang = "en"
 +++
 
-# AI will increase the demand for software engineers
-
-**AI will increase the demand for software engineers, not decrease it.**
-
 No one knows the future. And I don’t know if I believe this **100%**—but it’s worth saying out loud amid all the AI hype.
 
 There’s a solid economic argument for why “better tools” often **increase** total usage of the thing they make cheaper. It’s commonly discussed as **Jevons’ paradox** (or, more generally, the “rebound effect”).

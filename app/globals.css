@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+/* Color System — light default, dark via prefers-color-scheme */
+:root {
+  --stone: #282725;
+  --stone-shaded: #343330;
+  --ghost: #f7f5f1;
+  --ghost-shaded: #eeeae3;
+  --lichen: #d2d6c5;
+  --eggplant: #35313d;
+  --vellum: #EEEAE3;
+  --acid: #dfff56;
+
+  --base: var(--ghost);
+  --base-shaded: var(--ghost-shaded);
+  --contrast: var(--stone);
+  --contrast-shaded: var(--stone-shaded);
+  --accent: var(--eggplant);
+  --shadow-line: var(--vellum);
+  --faint: var(--vellum);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base: var(--stone);
+    --base-shaded: var(--stone-shaded);
+    --contrast: var(--ghost);
+    --contrast-shaded: var(--ghost-shaded);
+    --accent: var(--lichen);
+    --shadow-line: rgba(62, 61, 58, 0.5);
+    --faint: var(--stone-shaded);
+  }
+}
+
+@theme inline {
+  --color-base: var(--base);
+  --color-base-shaded: var(--base-shaded);
+  --color-contrast: var(--contrast);
+  --color-contrast-shaded: var(--contrast-shaded);
+  --color-accent: var(--accent);
+  --color-line: var(--shadow-line);
+  --color-faint: var(--faint);
+  --color-acid: var(--acid);
+  --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-serif: var(--font-space-grotesk), system-ui, sans-serif;
+  --font-mono: var(--font-departure-mono), monospace;
+  --font-arabic: var(--font-ibm-arabic), sans-serif;
+}
+
+@layer base {
+  body {
+    background: var(--base);
+    color: var(--contrast);
+  }
+
+  h1 {
+    font-family: var(--font-departure-mono), monospace;
+    color: var(--acid);
+    text-shadow:
+      -1px -1px 0 #000,
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000,
+       0px  0px 0 #000,
+       2px  2px 0 #000;
+  }
+
+  button,
+  a {
+    transition: all 0.2s ease-in-out;
+  }
+
+  a:not(.logo-link):active,
+  button:active {
+    transform: translateY(1px);
+  }
+}
+
+/* Animations */
+.intro-animation {
+  animation: 1.4s down-enter cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+.fade-in {
+  animation: 1.8s fade-in cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+@keyframes down-enter {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  40% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  45% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Arrow animation */
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-in-out;
+  --arrow-distance: 4px;
+}
+
+a:hover .arrow {
+  transform: translateX(var(--arrow-distance));
+}
+
+/* More link */
+.more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-family: var(--font-departure-mono), monospace;
+  color: var(--contrast-shaded);
+  transition: color 0.2s ease-in-out;
+}
+
+.more-link:hover {
+  color: var(--contrast);
+}
+
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl-post blockquote {
+  border-right: 4px solid var(--acid);
+  border-left: none;
+  padding-right: 1rem;
+  padding-left: 0;
+}
+
+.rtl-post code,
+.rtl-post pre {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Post body prose styles */
+.prose-d6 {
+  max-width: 80ch;
+  margin: auto;
+  min-height: 75vh;
+}
+.prose-d6 h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  text-shadow: none;
+}
+.prose-d6 h2 {
+  font-size: 1.5rem;
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  text-shadow: none;
+}
+.prose-d6 h3 {
+  font-size: 1.25rem;
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  text-shadow: none;
+}
+.prose-d6 p {
+  font-size: 1.25rem;
+  line-height: 1.75;
+  opacity: 0.90;
+  margin-top: 2.5rem;
+}
+.prose-d6 strong {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.prose-d6 a:not(.more-link) {
+  text-decoration: underline;
+  opacity: 0.80;
+}
+.prose-d6 a:not(.more-link):hover {
+  opacity: 1;
+  color: var(--accent);
+}
+.prose-d6 code {
+  font-family: var(--font-departure-mono), monospace;
+  background: var(--faint);
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-size: 0.875em;
+  color: var(--contrast);
+}
+.prose-d6 pre {
+  background: var(--base-shaded);
+  padding: 2rem;
+  overflow-x: auto;
+  margin-top: 2.5rem;
+  border-bottom: 2px solid var(--contrast);
+}
+.prose-d6 pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.875em;
+}
+.prose-d6 blockquote {
+  position: relative;
+  margin: 2.5rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid currentColor;
+}
+.prose-d6 ul {
+  padding-left: 2rem;
+  margin: 2rem 0;
+  list-style-type: disc;
+}
+.prose-d6 ol {
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  list-style-type: decimal;
+}
+.prose-d6 ol ol {
+  list-style-type: lower-latin;
+  margin: 1rem 0;
+}
+.prose-d6 li {
+  font-size: 1.25rem;
+  margin: 1rem 0;
+}
+.prose-d6 img {
+  width: 100%;
+  height: auto;
+  margin: 2rem 0;
+}
+.prose-d6 img + em {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  opacity: 0.75;
+  margin-top: -1rem;
+}
+.prose-d6 iframe {
+  margin: 2.5rem 0;
+  aspect-ratio: 16/9;
+  width: 100%;
+  height: auto;
+}
+.prose-d6 hr {
+  border: none;
+  height: 1px;
+  background: var(--shadow-line);
+  margin: 2em 0;
+}
+
+pre, code {
+  font-family: monospace;
+}
