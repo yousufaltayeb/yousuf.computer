@@ -51,8 +51,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${departureMono.variable} ${ibmArabic.variable}`}>
       <body className="bg-base text-contrast antialiased font-sans">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-acid focus:text-stone focus:px-4 focus:py-2 focus:font-mono focus:text-sm"
+        >
+          Skip to content
+        </a>
         <Header />
-        <main className="max-w-[1200px] mx-auto px-8">{children}</main>
+        <main id="main" className="max-w-[1200px] mx-auto px-8">{children}</main>
         <Footer />
       </body>
     </html>

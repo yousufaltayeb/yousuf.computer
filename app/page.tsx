@@ -15,7 +15,7 @@ export default async function Home() {
         <h2 className="text-2xl">
           I am a Software Engineer based in Riyadh, Saudi Arabia.
         </h2>
-        <div className="hidden lg:flex items-center gap-2 lg:gap-8 mt-8">
+        <div className="flex flex-wrap items-center gap-2 lg:gap-8 mt-8">
           {[
             { label: "Twitter", href: "https://twitter.com/yousufaltayeb" },
             { label: "Github", href: "https://github.com/yousufaltayeb" },
@@ -87,18 +87,18 @@ export default async function Home() {
               <Link
                 key={project.id}
                 href={`/work/${project.id}`}
-                className="bg-[#EEEAE3] border border-[#EEEAE3] overflow-hidden block min-w-[250px] flex-1"
+                className="bg-faint border border-faint overflow-hidden block min-w-[250px] flex-1"
               >
                 <div className="flex items-center justify-center aspect-[4/3]">
-                  <span className="font-mono text-4xl select-none text-[#282725] opacity-20 font-bold tracking-tighter" aria-hidden="true">
+                  <span className="font-mono text-4xl select-none text-contrast opacity-20 font-bold tracking-tighter" aria-hidden="true">
                     {project.symbol || "{ }"}
                   </span>
                 </div>
                 <div className="px-5 pb-5">
-                  <div className="font-mono text-[10px] text-[#282725]/60 uppercase tracking-wider mb-1">
+                  <div className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider mb-1">
                     {project.year}
                   </div>
-                  <div className="text-[14px] text-[#282725] font-medium">
+                  <div className="text-[14px] text-contrast font-medium">
                     {project.title}
                   </div>
                 </div>

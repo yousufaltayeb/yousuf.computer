@@ -21,19 +21,19 @@ export default async function WorkPage() {
             <Link
               key={job.id}
               href={`/work/${job.id}`}
-              className="bg-[#EEEAE3] border border-[#EEEAE3] p-8 aspect-video relative flex flex-col items-center justify-center"
+              className="bg-faint border border-faint p-8 aspect-video relative flex flex-col items-center justify-center"
             >
               <span
-                className="font-mono text-5xl select-none text-[#282725] opacity-20 font-bold tracking-tighter"
+                className="font-mono text-5xl select-none text-contrast opacity-20 font-bold tracking-tighter"
                 aria-hidden="true"
               >
                 {job.symbol}
               </span>
               <div className="absolute bottom-4 left-4 flex flex-col">
-                <span className="font-mono text-[10px] text-[#282725]/60 uppercase tracking-wider">
+                <span className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider">
                   {job.period}
                 </span>
-                <span className="text-[#282725] text-[14px] font-medium">
+                <span className="text-contrast text-[14px] font-medium">
                   {job.company}
                 </span>
               </div>
@@ -51,21 +51,21 @@ export default async function WorkPage() {
             <Link
               key={project.id}
               href={`/work/${project.id}`}
-              className="bg-[#EEEAE3] border border-[#EEEAE3] overflow-hidden block group"
+              className="bg-faint border border-faint overflow-hidden block group"
             >
               <div className="flex items-center justify-center aspect-[4/3]">
                 <span
-                  className="font-mono text-4xl select-none text-[#282725] opacity-20 font-bold tracking-tighter"
+                  className="font-mono text-4xl select-none text-contrast opacity-20 font-bold tracking-tighter"
                   aria-hidden="true"
                 >
                   {project.symbol || "{ }"}
                 </span>
               </div>
               <div className="px-5 pb-5">
-                <div className="font-mono text-[10px] text-[#282725]/60 uppercase tracking-wider mb-1">
+                <div className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider mb-1">
                   {project.year}
                 </div>
-                <div className="text-[14px] text-[#282725] font-medium">
+                <div className="text-[14px] text-contrast font-medium">
                   {project.title}
                 </div>
               </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import {
   getPostBySlug,
   generateStaticParams as generatePostStaticParams,
@@ -13,14 +14,18 @@ export async function generateStaticParams() {
   return await generatePostStaticParams();
 }
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const d = new Date(dateStr + "T00:00:00");
-  return d.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
+export async function generateMetadata({ params }: ThoughtPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
+  if (!post) return {};
+  return {
+    title: `${post.title} | Yousuf Altayeb`,
+    description: post.title,
+    openGraph: {
+      title: post.title,
+      type: "article",
+    },
+  };
 }
 
 export default async function ThoughtPage({ params }: ThoughtPageProps) {

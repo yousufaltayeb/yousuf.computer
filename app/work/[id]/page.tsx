@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { getAllProjects, getProjectById, getAllJobs, getJobById } from "@/lib/portfolio-data";
 import { notFound } from "next/navigation";
 
@@ -12,6 +13,21 @@ export async function generateStaticParams() {
     ...projects.map((p) => ({ id: p.id })),
     ...jobs.map((j) => ({ id: j.id })),
   ];
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params;
+  const [project, job] = await Promise.all([getProjectById(id), getJobById(id)]);
+  const title = job ? job.company : project?.title;
+  if (!title) return {};
+  return {
+    title: `${title} | Yousuf Altayeb`,
+    description: job ? `${job.role} at ${job.company}` : title,
+    openGraph: {
+      title,
+      type: "article",
+    },
+  };
 }
 
 export default async function WorkDetailPage({ params }: PageProps) {

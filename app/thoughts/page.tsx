@@ -1,11 +1,6 @@
 import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
-
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const d = new Date(dateStr + "T00:00:00");
-  return `${d.getMonth() + 1}/${d.getDate().toString().padStart(2, "0")}/${d.getFullYear()}`;
-}
+import { formatDateShort } from "@/lib/utils";
 
 export default async function ThoughtsPage() {
   const posts = await getAllPostMeta();
@@ -29,7 +24,7 @@ export default async function ThoughtsPage() {
                 className="group block"
               >
                 <time className="font-mono text-contrast-shaded text-sm block mb-1">
-                  {formatDate(post.date)}
+                  {formatDateShort(post.date)}
                 </time>
                 <h2 className="text-3xl font-bold leading-snug">
                   {post.title}

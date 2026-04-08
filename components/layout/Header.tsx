@@ -23,20 +23,21 @@ export default function Header() {
             yousuf &gt;
           </Link>
           <div className="flex items-center gap-4 md:gap-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  pathname === item.href ||
-                  pathname.startsWith(item.href + "/")
-                    ? "font-bold"
-                    : ""
-                }
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                pathname.startsWith(item.href + "/");
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  className={isActive ? "font-bold" : ""}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
         <hr className="h-[1px] bg-line border-0" />

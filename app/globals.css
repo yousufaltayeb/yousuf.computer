@@ -277,3 +277,34 @@ a:hover .arrow {
 pre, code {
   font-family: monospace;
 }
+
+/* Focus indicators (M1) */
+:focus-visible {
+  outline: 2px solid var(--acid);
+  outline-offset: 2px;
+}
+
+/* Reduced motion (C1) */
+@media (prefers-reduced-motion: reduce) {
+  .intro-animation,
+  .fade-in {
+    animation: none;
+  }
+
+  .arrow {
+    transition: none;
+  }
+
+  button,
+  a {
+    transition: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
