@@ -36,15 +36,7 @@ const history = [
   },
   {
     year: 2023,
-    event: "Moved to Sudan for a CS degree.",
-  },
-  {
-    year: 2023,
-    event: "War broke out.",
-  },
-  {
-    year: 2023,
-    event: "Moved back to Saudi with nothing but a laptop and a decision.",
+    event: "Life got complicated. Changed continents, then hard-reset in Riyadh.",
   },
   {
     year: 2023,
