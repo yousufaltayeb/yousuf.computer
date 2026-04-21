@@ -68,22 +68,23 @@ const history = [
 export default function HeadingSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const [width, setWidth] = useState(0);
-  const [x, setX] = useState(0);
+  const [index, setIndex] = useState(0);
   const el = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  const index =
-    width > 0 ? Math.round((x / width) * (history.length - 1)) : 0;
+  // x is derived — stays correct when width changes on resize
+  const x = width > 0 ? (width / (history.length - 1)) * index : 0;
 
   const handleChange = useCallback(
     (e: MouseEvent | TouchEvent) => {
       if (!el.current) return;
-      const { left } = el.current.getBoundingClientRect();
+      const { left, width: elWidth } = el.current.getBoundingClientRect();
       const clientX =
         "touches" in e ? e.touches[0].clientX : e.clientX;
-      setX(Math.max(0, Math.min(clientX - left, width)));
+      const newX = Math.max(0, Math.min(clientX - left, elWidth));
+      setIndex(Math.round((newX / elWidth) * (history.length - 1)));
     },
-    [width]
+    []
   );
 
   const handleMouseUp = useCallback(() => {
@@ -122,14 +123,19 @@ export default function HeadingSlider() {
       default:
         return;
     }
-    setX((width / (history.length - 1)) * newIndex);
+    setIndex(newIndex);
   }
 
   useEffect(() => {
+    const observer = new ResizeObserver((entries) => {
+      setWidth(entries[0].contentRect.width);
+    });
     if (el.current) {
+      observer.observe(el.current);
       setWidth(el.current.offsetWidth);
     }
     return () => {
+      observer.disconnect();
       window.removeEventListener("mousemove", handleChange);
       window.removeEventListener("mouseup", handleMouseUp);
     };
@@ -166,7 +172,7 @@ export default function HeadingSlider() {
         aria-valuemin={0}
         aria-valuemax={history.length - 1}
         aria-valuetext={`${history[index].year ? history[index].year + ": " : ""}${history[index].event}`}
-        className="inline-flex items-end justify-between gap-2 ml-[-1px] absolute bottom-0"
+        className="flex w-full items-end justify-between absolute bottom-0"
         style={{ cursor: isDragging ? "grabbing" : "pointer" }}
         onMouseDown={handleMouseDown}
         onTouchMove={handleChange as unknown as React.TouchEventHandler}
@@ -178,7 +184,7 @@ export default function HeadingSlider() {
             key={i}
             className="relative flex items-center justify-center"
             style={{ width: 24, minHeight: 24 }}
-            onClick={() => setX((width / (history.length - 1)) * i)}
+            onClick={() => setIndex(i)}
           >
             <div
               className={`${
