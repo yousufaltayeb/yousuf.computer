@@ -44,7 +44,7 @@ const history = [
   },
   {
     year: 2024,
-    event: "Spent more time in King Fahad Library than at home. Four-hour commute, but it was worth it.",
+    event: "Spent a lot of time studying in public libraries.",
   },
   {
     year: 2025,
