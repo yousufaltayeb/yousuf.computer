@@ -68,12 +68,12 @@ const history = [
 export default function HeadingSlider() {
   const [isDragging, setIsDragging] = useState(false);
   const [width, setWidth] = useState(0);
-  const [index, setIndex] = useState(0);
+  const [fraction, setFraction] = useState(0);
   const el = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // x is derived — stays correct when width changes on resize
-  const x = width > 0 ? (width / (history.length - 1)) * index : 0;
+  const index = Math.round(fraction * (history.length - 1));
+  const x = fraction * width;
 
   const handleChange = useCallback(
     (e: MouseEvent | TouchEvent) => {
@@ -81,8 +81,8 @@ export default function HeadingSlider() {
       const { left, width: elWidth } = el.current.getBoundingClientRect();
       const clientX =
         "touches" in e ? e.touches[0].clientX : e.clientX;
-      const newX = Math.max(0, Math.min(clientX - left, elWidth));
-      setIndex(Math.round((newX / elWidth) * (history.length - 1)));
+      const newFraction = Math.max(0, Math.min((clientX - left) / elWidth, 1));
+      setFraction(newFraction);
     },
     []
   );
@@ -123,7 +123,7 @@ export default function HeadingSlider() {
       default:
         return;
     }
-    setIndex(newIndex);
+    setFraction(newIndex / (history.length - 1));
   }
 
   useEffect(() => {
@@ -184,7 +184,7 @@ export default function HeadingSlider() {
             key={i}
             className="relative flex items-center justify-center"
             style={{ width: 24, minHeight: 24 }}
-            onClick={() => setIndex(i)}
+            onClick={() => setFraction(i / (history.length - 1))}
           >
             <div
               className={`${
