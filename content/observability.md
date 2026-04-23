@@ -121,5 +121,4 @@ That's what I've got so far.
 - [Logging Sucks](https://loggingsucks.com/) by Boris Tane, the wide events / canonical log lines piece
 - [evlog](https://www.evlog.dev/) the JS library
 - [YouTube — observability episode](https://www.youtube.com/watch?v=5PEuwgLOQQM&list=PLui3EUkuMTPgZcV0QhQrOcwMPcBCcd_Q1&index=18)
-- [YouTube — live session](https://www.youtube.com/live/VetYFD0MlGI?si=RMkVLznVWmc1CC8l)
 - [YouTube — playlist](https://www.youtube.com/playlist?list=PLTRDUPO2OmImfWPK4cSusvHoEV6KWeXNm)
