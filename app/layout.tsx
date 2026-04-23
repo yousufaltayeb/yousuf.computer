@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   title: "Yousuf Altayeb | Software Engineer",
   description: "Software engineer, writer, and explorer. Building fast, secure, and elegant software.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/fav.png",
   },
   openGraph: {
     title: "Yousuf Altayeb",
