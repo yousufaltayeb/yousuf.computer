@@ -51,7 +51,7 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
         className="text-4xl font-bold leading-tight tracking-tight mb-16 intro-animation"
         dir={isRtl ? "rtl" : "ltr"}
         {...(isRtl && {
-          style: { fontFamily: "var(--font-ibm-arabic)" },
+          style: { fontFamily: "var(--font-arabic-display)" },
         })}
       >
         {post.title}
@@ -61,7 +61,7 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
         className={`prose-d6 fade-in ${isRtl ? "rtl-post" : ""}`}
         dir={isRtl ? "rtl" : "ltr"}
         {...(isRtl && {
-          style: { fontFamily: "var(--font-ibm-arabic)" },
+          style: { fontFamily: "var(--font-arabic)" },
         })}
         dangerouslySetInnerHTML={{ __html: post.html }}
       />

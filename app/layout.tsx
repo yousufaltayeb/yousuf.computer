@@ -17,18 +17,41 @@ const departureMono = localFont({
   weight: "400",
 });
 
-const ibmArabic = localFont({
+const thmanyahText = localFont({
   src: [
     {
-      path: "./fonts/IBMPlexSansArabic-Regular.woff2",
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Regular.woff2",
       weight: "400",
     },
     {
-      path: "./fonts/IBMPlexSansArabic-Bold.woff2",
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Medium.woff2",
+      weight: "500",
+    },
+    {
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Bold.woff2",
       weight: "700",
     },
   ],
-  variable: "--font-ibm-arabic",
+  variable: "--font-thmanyah-text",
+  adjustFontFallback: false,
+});
+
+const thmanyahDisplay = localFont({
+  src: [
+    {
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Regular.woff2",
+      weight: "400",
+    },
+    {
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Bold.woff2",
+      weight: "700",
+    },
+    {
+      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Black.woff2",
+      weight: "900",
+    },
+  ],
+  variable: "--font-thmanyah-display",
   adjustFontFallback: false,
 });
 
@@ -52,7 +75,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${departureMono.variable} ${ibmArabic.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${departureMono.variable} ${thmanyahText.variable} ${thmanyahDisplay.variable}`}>
       <body className="bg-base text-contrast antialiased font-sans">
         <a
           href="#main"

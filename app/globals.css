@@ -53,7 +53,8 @@
   --font-sans: var(--font-space-grotesk), system-ui, sans-serif;
   --font-serif: var(--font-space-grotesk), system-ui, sans-serif;
   --font-mono: var(--font-departure-mono), monospace;
-  --font-arabic: var(--font-ibm-arabic), sans-serif;
+  --font-arabic: var(--font-thmanyah-text), serif;
+  --font-arabic-display: var(--font-thmanyah-display), serif;
 }
 
 @layer base {
