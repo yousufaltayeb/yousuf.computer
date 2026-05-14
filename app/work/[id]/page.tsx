@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllProjects, getProjectById, getAllJobs, getJobById } from "@/lib/portfolio-data";
 import { notFound } from "next/navigation";
+import { absoluteUrl } from "@/lib/site";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -20,12 +21,24 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const [project, job] = await Promise.all([getProjectById(id), getJobById(id)]);
   const title = job ? job.company : project?.title;
   if (!title) return {};
+  const description = job ? `${job.role} at ${job.company}` : title;
+  const url = absoluteUrl(`/work/${id}`);
   return {
-    title: `${title} | Yousuf Altayeb`,
-    description: job ? `${job.role} at ${job.company}` : title,
+    title,
+    description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title,
+      description,
       type: "article",
+      url,
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
     },
   };
 }

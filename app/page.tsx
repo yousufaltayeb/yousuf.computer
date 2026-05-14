@@ -1,7 +1,30 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { getAllProjects } from "@/lib/portfolio-data";
 import HeadingSlider from "@/components/HeadingSlider";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: {
+    absolute: siteConfig.title,
+  },
+  description: siteConfig.description,
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: absoluteUrl("/"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+};
 
 export default async function Home() {
   const [posts, allProjects] = await Promise.all([getAllPostMeta(), getAllProjects()]);
@@ -11,18 +34,18 @@ export default async function Home() {
     <>
       {/* Hero */}
       <section className="py-24 intro-animation relative">
-        <h1 className="text-4xl mb-4">Hello, my name is Yousuf.</h1>
-        <h2 className="text-2xl">
-          I am a Software Engineer based in Riyadh, Saudi Arabia.
+        <h1 className="text-4xl md:text-5xl mb-4 leading-tight">
+          Yousuf Altayeb{" "}
+          <span className="font-arabic-display" dir="rtl" lang="ar">
+            / يوسف الطيب
+          </span>
+        </h1>
+        <h2 className="text-2xl max-w-[820px] text-contrast-shaded">
+          Software engineer based in Riyadh, building web software, tools, and
+          writing.
         </h2>
         <div className="flex flex-wrap items-center gap-2 lg:gap-8 mt-8">
-          {[
-            { label: "Twitter", href: "https://twitter.com/yousufaltayeb" },
-            { label: "Github", href: "https://github.com/yousufaltayeb" },
-            { label: "LinkedIn", href: "https://www.linkedin.com/in/yousufaltayeb/" },
-            { label: "Qabilah", href: "https://qabilah.com/profile/yousufaltayeb/posts" },
-            { label: "Email", href: "mailto:contact@yousuf.computer" },
-          ].map(({ label, href }) => (
+          {siteConfig.social.map(({ label, href }) => (
             <a
               key={label}
               href={href}

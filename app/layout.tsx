@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-
+import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -20,15 +20,15 @@ const departureMono = localFont({
 const thmanyahText = localFont({
   src: [
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Regular.woff2",
+      path: "./fonts/ThmanyahSerifText-Regular.woff2",
       weight: "400",
     },
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Medium.woff2",
+      path: "./fonts/ThmanyahSerifText-Medium.woff2",
       weight: "500",
     },
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahseriftext/woff2/thmanyahseriftext-Bold.woff2",
+      path: "./fonts/ThmanyahSerifText-Bold.woff2",
       weight: "700",
     },
   ],
@@ -39,15 +39,15 @@ const thmanyahText = localFont({
 const thmanyahDisplay = localFont({
   src: [
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Regular.woff2",
+      path: "./fonts/ThmanyahSerifDisplay-Regular.woff2",
       weight: "400",
     },
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Bold.woff2",
+      path: "./fonts/ThmanyahSerifDisplay-Bold.woff2",
       weight: "700",
     },
     {
-      path: "../public/fonts/Thmanyah-Font-Family/thmanyah typeface/thmanyahserifdisplay/woff2/thmanyahserifdisplay-Black.woff2",
+      path: "./fonts/ThmanyahSerifDisplay-Black.woff2",
       weight: "900",
     },
   ],
@@ -56,16 +56,32 @@ const thmanyahDisplay = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Yousuf Altayeb | Software Engineer",
-  description: "Software engineer, writer, and explorer. Building fast, secure, and elegant software.",
+  metadataBase: new URL(siteConfig.siteUrl),
+  title: {
+    default: siteConfig.title,
+    template: `%s | ${siteConfig.bilingualName}`,
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.bilingualName,
+  authors: [{ name: siteConfig.name, url: absoluteUrl("/about") }],
+  creator: siteConfig.bilingualName,
+  publisher: siteConfig.bilingualName,
   icons: {
-    icon: "/fav.png",
+    icon: "/favicon.ico",
   },
   openGraph: {
-    title: "Yousuf Altayeb",
-    description: "Software engineer, writer, and explorer.",
+    title: siteConfig.title,
+    description: siteConfig.description,
     type: "website",
-    url: "https://yousuf.computer",
+    url: absoluteUrl("/"),
+    siteName: siteConfig.bilingualName,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator: "@yousufaltayeb",
   },
 };
 

@@ -1,5 +1,29 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProjects, getAllJobs } from "@/lib/portfolio-data";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+
+const description =
+  "Work experience and side projects by Yousuf Altayeb / يوسف الطيب.";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description,
+  alternates: {
+    canonical: absoluteUrl("/work"),
+  },
+  openGraph: {
+    title: `Work | ${siteConfig.bilingualName}`,
+    description,
+    url: absoluteUrl("/work"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `Work | ${siteConfig.bilingualName}`,
+    description,
+  },
+};
 
 export default async function WorkPage() {
   const [jobs, projects] = await Promise.all([getAllJobs(), getAllProjects()]);

@@ -1,6 +1,30 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { formatDateShort } from "@/lib/utils";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+
+const description =
+  "Essays and notes by Yousuf Altayeb / يوسف الطيب on software engineering, JavaScript, security, AI, and the web.";
+
+export const metadata: Metadata = {
+  title: "Thoughts",
+  description,
+  alternates: {
+    canonical: absoluteUrl("/thoughts"),
+  },
+  openGraph: {
+    title: `Thoughts | ${siteConfig.bilingualName}`,
+    description,
+    url: absoluteUrl("/thoughts"),
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: `Thoughts | ${siteConfig.bilingualName}`,
+    description,
+  },
+};
 
 export default async function ThoughtsPage() {
   const posts = await getAllPostMeta();
