@@ -51,10 +51,25 @@ export default function AboutPage() {
       />
 
       <section className="pt-16 sm:pt-24 pb-10 intro-animation">
-        <h1 className="text-4xl md:text-5xl mb-5 leading-tight">
-          Yousuf Altayeb{" "}
-          <span className="font-arabic-display" dir="rtl" lang="ar">
-            / يوسف الطيب
+        <h1
+          className="mb-5 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-4xl leading-tight md:text-5xl"
+          aria-label={siteConfig.bilingualName}
+        >
+          <span aria-hidden="true">Yousuf Altayeb</span>
+          <span
+            className="inline-flex items-baseline gap-x-3 whitespace-nowrap"
+            aria-hidden="true"
+          >
+            <span className="font-mono text-[0.82em] leading-none opacity-90">
+              /
+            </span>
+            <span
+              className="font-arabic-display [unicode-bidi:isolate]"
+              dir="rtl"
+              lang="ar"
+            >
+              يوسف الطيب
+            </span>
           </span>
         </h1>
         <p className="text-2xl max-w-[820px] text-contrast-shaded">
