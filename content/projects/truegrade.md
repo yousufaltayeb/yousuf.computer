@@ -7,8 +7,7 @@ year = 2025
 featured = true
 [taxonomies]
 tags = ["Python", "FastAPI", "PostGIS", "Kriging"]
-[extra]
-github = "https://github.com/yousufaltayeb/truegrade"
+
 +++
 
 A mineral grade estimation API that uses Ordinary Kriging 3D to predict gold grades at any location based on drillhole and surface sample data. Users create sites, upload geological datasets via Excel, and query the API to estimate mineral grades at arbitrary (x, y, z) coordinates.
