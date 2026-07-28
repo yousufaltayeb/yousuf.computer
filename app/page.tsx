@@ -114,9 +114,9 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Side Projects */}
+      {/* Projects */}
       <section className="fade-in pt-12">
-        <h3 className="text-contrast mb-4 font-mono">Side Projects</h3>
+        <h3 className="text-contrast mb-4 font-mono">Projects</h3>
         <hr className="h-[1px] bg-line border-0 mb-8" />
         <div className="flex gap-4 overflow-auto scrollbar-hide">
           {allProjects

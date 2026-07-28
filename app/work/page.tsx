@@ -4,7 +4,7 @@ import { getAllProjects, getAllJobs } from "@/lib/portfolio-data";
 import { absoluteUrl, siteConfig } from "@/lib/site";
 
 const description =
-  "Work experience and side projects by Yousuf Altayeb / يوسف الطيب.";
+  "Work experience and projects by Yousuf Altayeb / يوسف الطيب.";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -66,9 +66,9 @@ export default async function WorkPage() {
         </div>
       </section>
 
-      {/* Side Projects */}
+      {/* Projects */}
       <section className="pb-20 sm:pb-24 fade-in">
-        <h3 className="text-contrast mb-4 font-mono">Side Projects</h3>
+        <h3 className="text-contrast mb-4 font-mono">Projects</h3>
         <hr className="h-[1px] bg-line border-0 mb-8" />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {projects.map((project) => (
