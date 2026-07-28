@@ -36,9 +36,9 @@ export default async function WorkPage() {
         </h2>
       </section>
 
-      {/* Experience */}
+      {/* Job Experience */}
       <section className="pt-12 sm:pt-16 pb-12 fade-in">
-        <h3 className="text-contrast mb-4 font-mono">Experience</h3>
+        <h3 className="text-contrast mb-4 font-mono">Job Experience</h3>
         <hr className="h-[1px] bg-line border-0 mb-8" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {jobs.map((job) => (
