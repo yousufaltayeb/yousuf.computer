@@ -4,7 +4,14 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultSocialImage,
+  personJsonLd,
+  safeJsonLd,
+  siteConfig,
+  websiteJsonLd,
+} from "@/lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -62,6 +69,14 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.bilingualName}`,
   },
   description: siteConfig.description,
+  keywords: [
+    "Yousuf Altayeb",
+    "يوسف الطيب",
+    "software engineer Riyadh",
+    "web software",
+    "JavaScript",
+    "TypeScript",
+  ],
   applicationName: siteConfig.bilingualName,
   authors: [{ name: siteConfig.name, url: absoluteUrl("/about") }],
   creator: siteConfig.bilingualName,
@@ -69,19 +84,45 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  alternates: {
+    types: {
+      "application/rss+xml": absoluteUrl("/feed.xml"),
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     title: siteConfig.title,
     description: siteConfig.description,
     type: "website",
     url: absoluteUrl("/"),
     siteName: siteConfig.bilingualName,
-    locale: "en_US",
+    locale: siteConfig.locale,
+    alternateLocale: siteConfig.alternateLocale,
+    images: [
+      {
+        url: defaultSocialImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.bilingualName} — Software Engineer`,
+      },
+    ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
     creator: "@yousufaltayeb",
+    images: [defaultSocialImage],
   },
 };
 
@@ -92,7 +133,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${departureMono.variable} ${thmanyahText.variable} ${thmanyahDisplay.variable}`}>
+      <head>
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title={`${siteConfig.bilingualName} — Thoughts`}
+          href={absoluteUrl("/feed.xml")}
+        />
+      </head>
       <body className="bg-base text-contrast antialiased font-sans">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: safeJsonLd({
+              "@context": "https://schema.org",
+              "@graph": [websiteJsonLd, personJsonLd],
+            }),
+          }}
+        />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-acid focus:text-stone focus:px-4 focus:py-2 focus:font-mono focus:text-sm"

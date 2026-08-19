@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LegacyCanonicalPage from "@/components/LegacyCanonicalPage";
-import { absoluteUrl, legacyUrlMappings, siteConfig } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultSocialImage,
+  legacyUrlMappings,
+  siteConfig,
+} from "@/lib/site";
 
 interface LegacyTagPageProps {
   params: Promise<{ tag: string }>;
@@ -31,16 +36,22 @@ export async function generateMetadata({
     alternates: {
       canonical: absoluteUrl(destination),
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
     openGraph: {
       title: `Thoughts | ${siteConfig.bilingualName}`,
       description: `This tag page moved to ${absoluteUrl(destination)}.`,
       url: absoluteUrl(destination),
       type: "website",
+      images: [defaultSocialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: `Thoughts | ${siteConfig.bilingualName}`,
       description: `This tag page moved to ${absoluteUrl(destination)}.`,
+      images: [defaultSocialImage],
     },
   };
 }

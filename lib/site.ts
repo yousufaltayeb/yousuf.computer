@@ -8,6 +8,8 @@ export const siteConfig = {
     "Yousuf Altayeb / يوسف الطيب is a software engineer based in Riyadh, Saudi Arabia, building web software, tools, and writing.",
   shortDescription:
     "Software engineer based in Riyadh, building web software, tools, and writing.",
+  locale: "en_US",
+  alternateLocale: "ar_SA",
   email: "contact@yousuf.computer",
   social: [
     {
@@ -66,6 +68,45 @@ export function safeJsonLd(data: unknown) {
 export const sameAsLinks = siteConfig.social
   .map((item) => item.href)
   .filter((href) => href.startsWith("https://"));
+
+export const personId = absoluteUrl("/about#person");
+export const websiteId = absoluteUrl("/#website");
+export const defaultSocialImage = absoluteUrl("/opengraph-image");
+
+export const personJsonLd = {
+  "@type": "Person",
+  "@id": personId,
+  name: siteConfig.name,
+  alternateName: [siteConfig.arabicName, siteConfig.bilingualName],
+  url: absoluteUrl("/about"),
+  jobTitle: "Software Engineer",
+  email: siteConfig.email,
+  homeLocation: {
+    "@type": "Place",
+    name: "Riyadh, Saudi Arabia",
+  },
+  knowsAbout: [
+    "Software engineering",
+    "Web development",
+    "JavaScript",
+    "TypeScript",
+    "Application security",
+    "Artificial intelligence",
+  ],
+  sameAs: sameAsLinks,
+};
+
+export const websiteJsonLd = {
+  "@type": "WebSite",
+  "@id": websiteId,
+  url: absoluteUrl("/"),
+  name: siteConfig.bilingualName,
+  alternateName: [siteConfig.name, siteConfig.arabicName],
+  description: siteConfig.description,
+  inLanguage: ["en", "ar"],
+  author: { "@id": personId },
+  publisher: { "@id": personId },
+};
 
 export const legacyUrlMappings = [
   ...siteConfig.legacyRootPostSlugs.map((slug) => ({

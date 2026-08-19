@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { formatDateShort } from "@/lib/utils";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
 
 const description =
   "Essays and notes by Yousuf Altayeb / يوسف الطيب on software engineering, JavaScript, security, AI, and the web.";
@@ -18,11 +18,13 @@ export const metadata: Metadata = {
     description,
     url: absoluteUrl("/thoughts"),
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `Thoughts | ${siteConfig.bilingualName}`,
     description,
+    images: [defaultSocialImage],
   },
 };
 

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { getAllProjects } from "@/lib/portfolio-data";
 import HeadingSlider from "@/components/HeadingSlider";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -18,11 +18,13 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: absoluteUrl("/"),
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteConfig.title,
     description: siteConfig.description,
+    images: [defaultSocialImage],
   },
 };
 

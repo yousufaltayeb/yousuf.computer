@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { absoluteUrl, safeJsonLd, sameAsLinks, siteConfig } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultSocialImage,
+  personJsonLd,
+  safeJsonLd,
+  siteConfig,
+} from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -12,11 +18,13 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: absoluteUrl("/about"),
     type: "profile",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `About ${siteConfig.bilingualName}`,
     description: siteConfig.description,
+    images: [defaultSocialImage],
   },
 };
 
@@ -27,18 +35,7 @@ const profileJsonLd = {
   url: absoluteUrl("/about"),
   name: `${siteConfig.bilingualName} profile`,
   mainEntity: {
-    "@type": "Person",
-    "@id": absoluteUrl("/about#person"),
-    name: siteConfig.name,
-    alternateName: [siteConfig.arabicName, siteConfig.bilingualName],
-    url: absoluteUrl("/about"),
-    jobTitle: "Software Engineer",
-    email: siteConfig.email,
-    homeLocation: {
-      "@type": "Place",
-      name: "Riyadh, Saudi Arabia",
-    },
-    sameAs: sameAsLinks,
+    ...personJsonLd,
   },
 };
 

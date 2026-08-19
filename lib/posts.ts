@@ -40,6 +40,68 @@ function slugify(filename: string): string {
     .replace(/[^\w-]/g, '');
 }
 
+function normalizeDate(value: unknown): string {
+  if (!value) return '';
+  if (typeof value === 'string') return value;
+  if (value instanceof Date) return value.toISOString().split('T')[0];
+  return String(value);
+}
+
+function plainTextFromMarkdown(markdown: string): string {
+  return markdown
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^\s*(?:[-*+] |\d+\. )/gm, '')
+    .replace(/[*_~`>|]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function createDescription(markdown: string, explicitDescription?: unknown): string {
+  const source =
+    typeof explicitDescription === 'string' && explicitDescription.trim()
+      ? explicitDescription.trim()
+      : plainTextFromMarkdown(markdown);
+
+  if (source.length <= 160) return source;
+  const clipped = source.slice(0, 157);
+  const lastSpace = clipped.lastIndexOf(' ');
+  return `${clipped.slice(0, lastSpace > 120 ? lastSpace : 157).trim()}…`;
+}
+
+function getContentMetrics(markdown: string) {
+  const wordCount = plainTextFromMarkdown(markdown)
+    .split(/\s+/)
+    .filter(Boolean).length;
+
+  return {
+    wordCount,
+    readingTimeMinutes: Math.max(1, Math.ceil(wordCount / 220)),
+  };
+}
+
+function postMetaFromContent(
+  file: string,
+  data: Record<string, any>,
+  content: string,
+): PostMeta {
+  const metrics = getContentMetrics(content);
+
+  return {
+    title: data.title || 'Untitled',
+    description: createDescription(content, data.description ?? data.extra?.description),
+    date: normalizeDate(data.date),
+    updated: normalizeDate(data.updated ?? data.extra?.updated) || undefined,
+    lang: data.extra?.lang || 'en',
+    tags: Array.isArray(data.taxonomies?.tags) ? data.taxonomies.tags : [],
+    slug: slugify(file),
+    ...metrics,
+  };
+}
+
 async function markdownToHtml(markdown: string): Promise<string> {
   const result = await unified()
     .use(remarkParse)
@@ -63,25 +125,8 @@ export async function getAllPostMeta(): Promise<PostMeta[]> {
     files.map(async (file) => {
       const filePath = path.join(CONTENT_DIR, file);
       const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const { data } = matter(fileContent, matterOptions);
-
-      let dateString = '';
-      if (data.date) {
-        if (typeof data.date === 'string') {
-          dateString = data.date;
-        } else if (data.date instanceof Date) {
-          dateString = data.date.toISOString().split('T')[0];
-        } else {
-          dateString = String(data.date);
-        }
-      }
-
-      return {
-        title: data.title || 'Untitled',
-        date: dateString,
-        lang: data.extra?.lang || 'en',
-        slug: slugify(file),
-      };
+      const { data, content } = matter(fileContent, matterOptions);
+      return postMetaFromContent(file, data, content);
     })
   );
 
@@ -103,22 +148,8 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 
       const html = await markdownToHtml(content);
 
-      let dateString = '';
-      if (data.date) {
-        if (typeof data.date === 'string') {
-          dateString = data.date;
-        } else if (data.date instanceof Date) {
-          dateString = data.date.toISOString().split('T')[0];
-        } else {
-          dateString = String(data.date);
-        }
-      }
-
       return {
-        title: data.title || 'Untitled',
-        date: dateString,
-        lang: data.extra?.lang || 'en',
-        slug,
+        ...postMetaFromContent(file, data, content),
         html,
       };
     }

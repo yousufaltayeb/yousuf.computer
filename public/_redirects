@@ -1,0 +1,21 @@
+# Preserve authority from the former blog URL structure.
+/biban-2025 /thoughts/biban-2025 301
+/demand-for-software-engineers /thoughts/demand-for-software-engineers 301
+/event-loop-javascript /thoughts/event-loop-javascript 301
+/promises-could-make-your-code-slower /thoughts/promises-could-make-your-code-slower 301
+/the-unsolved-problem-of-video-protection /thoughts/the-unsolved-problem-of-video-protection 301
+/page/1 /thoughts 301
+/tags /thoughts 301
+/tags/ai /thoughts 301
+/tags/career /thoughts 301
+/tags/drm /thoughts 301
+/tags/economics /thoughts 301
+/tags/event-loop /thoughts 301
+/tags/events /thoughts 301
+/tags/javascript /thoughts 301
+/tags/nodejs /thoughts 301
+/tags/security /thoughts 301
+/tags/software-engineering /thoughts 301
+/tags/streaming /thoughts 301
+/tags/video /thoughts 301
+/tags/web-development /thoughts 301

@@ -65,6 +65,9 @@ export async function getAllJobs(): Promise<Job[]> {
         company: data.title || '',
         role: data.role || '',
         period: data.period || '',
+        location: data.location,
+        description: data.description || `${data.role || 'Work experience'} at ${data.title || ''}`,
+        tags: Array.isArray(data.taxonomies?.tags) ? data.taxonomies.tags : [],
         symbol: data.symbol,
         html,
       } as Job;
@@ -98,10 +101,15 @@ export async function getAllProjects(): Promise<Project[]> {
       return {
         id: slugify(file),
         title: data.title || '',
+        description: data.description || data.title || '',
+        tags: Array.isArray(data.taxonomies?.tags) ? data.taxonomies.tags : [],
         symbol: data.symbol,
         year: data.year,
         featured: data.featured || false,
-        links: data.extra?.github ? { github: data.extra.github } : undefined,
+        links:
+          data.extra?.github || data.extra?.demo
+            ? { github: data.extra?.github, demo: data.extra?.demo }
+            : undefined,
         html,
       } as Project;
     })

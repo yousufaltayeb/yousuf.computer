@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProjects, getAllJobs } from "@/lib/portfolio-data";
-import { absoluteUrl, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
 
 const description =
   "Work experience and projects by Yousuf Altayeb / يوسف الطيب.";
@@ -17,11 +17,13 @@ export const metadata: Metadata = {
     description,
     url: absoluteUrl("/work"),
     type: "website",
+    images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: `Work | ${siteConfig.bilingualName}`,
     description,
+    images: [defaultSocialImage],
   },
 };
 

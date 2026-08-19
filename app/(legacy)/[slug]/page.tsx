@@ -2,7 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import LegacyCanonicalPage from "@/components/LegacyCanonicalPage";
 import { getPostBySlug } from "@/lib/posts";
-import { absoluteUrl, legacyUrlMappings, siteConfig } from "@/lib/site";
+import {
+  absoluteUrl,
+  defaultSocialImage,
+  legacyUrlMappings,
+  siteConfig,
+} from "@/lib/site";
 
 interface LegacyPostPageProps {
   params: Promise<{ slug: string }>;
@@ -34,16 +39,22 @@ export async function generateMetadata({
     alternates: {
       canonical: absoluteUrl(destination),
     },
+    robots: {
+      index: false,
+      follow: true,
+    },
     openGraph: {
       title,
       description: `This post moved to ${absoluteUrl(destination)}.`,
       url: absoluteUrl(destination),
       type: "article",
+      images: [defaultSocialImage],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description: `This post moved to ${absoluteUrl(destination)}.`,
+      images: [defaultSocialImage],
     },
   };
 }
