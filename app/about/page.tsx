@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   absoluteUrl,
   defaultSocialImage,
@@ -70,25 +71,92 @@ export default function AboutPage() {
           </span>
         </h1>
         <p className="text-2xl max-w-[820px] text-contrast-shaded">
-          Software engineer based in Riyadh, Saudi Arabia.
+          Full-stack engineer based in Riyadh, focused on backend engineering,
+          AI engineering, and system design.
         </p>
       </section>
 
       <section className="fade-in pb-20 sm:pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-7">
-            <h2 className="text-contrast mb-4 font-mono">Profile</h2>
-            <hr className="h-[1px] bg-line border-0 mb-8" />
-            <div className="space-y-7 text-xl leading-relaxed text-contrast-shaded">
-              <p>
-                I build web software and tools, and I write about software
-                engineering, JavaScript, security, AI, and the web.
-              </p>
-              <p className="font-arabic text-2xl leading-relaxed" dir="rtl" lang="ar">
-                يوسف الطيب مهندس برمجيات مقيم في الرياض، السعودية. أبني
-                برمجيات ويب وأدوات، وأكتب عن هندسة البرمجيات والويب.
-              </p>
-            </div>
+          <div className="space-y-14 lg:col-span-7 sm:space-y-16">
+            <section>
+              <h2 className="text-contrast mb-4 font-mono">Profile</h2>
+              <hr className="h-[1px] bg-line border-0 mb-8" />
+              <div className="space-y-7 text-xl leading-relaxed text-contrast-shaded">
+                <p>
+                  I build web products across the stack, with most of my
+                  attention going to backend architecture: APIs, data models,
+                  authorization, background jobs, and the operational details
+                  that make systems reliable.
+                </p>
+                <p
+                  className="font-arabic text-2xl leading-relaxed"
+                  dir="rtl"
+                  lang="ar"
+                >
+                  أنا يوسف الطيب، مهندس برمجيات مقيم في الرياض. أعمل على تطوير
+                  المنتجات عبر الواجهات والأنظمة الخلفية، مع تركيز خاص على هندسة
+                  الأنظمة الخلفية والذكاء الاصطناعي وتصميم الأنظمة.
+                </p>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-contrast mb-4 font-mono">Path</h2>
+              <hr className="h-[1px] bg-line border-0 mb-8" />
+              <div className="space-y-7 text-xl leading-relaxed text-contrast-shaded">
+                <p>
+                  I didn&apos;t take a direct route into engineering. Before
+                  writing software professionally, I spent three years in
+                  customer care and back-office operations at stc, then worked
+                  in document control on a construction project. Both roles
+                  involved finding patterns in messy systems, improving
+                  workflows, and making information easier to retrieve.
+                </p>
+                <p>
+                  After years of studying and building independently, I joined
+                  Grandshift as a software engineer, working across NestJS
+                  backends and frontend applications on payment, notification,
+                  and POS systems.
+                </p>
+              </div>
+            </section>
+
+            <section>
+              <h2 className="text-contrast mb-4 font-mono">Current focus</h2>
+              <hr className="h-[1px] bg-line border-0 mb-8" />
+              <div className="space-y-7 text-xl leading-relaxed text-contrast-shaded">
+                <p>
+                  I&apos;m currently building{" "}
+                  <Link
+                    className="text-link underline underline-offset-4"
+                    href="/work/miyari"
+                  >
+                    Miyari
+                  </Link>
+                  , an Arabic-first assessment platform for Saudi schools;{" "}
+                  <Link
+                    className="text-link underline underline-offset-4"
+                    href="/work/mutamad-net"
+                  >
+                    Mutamad
+                  </Link>
+                  , a bilingual construction-management platform; and{" "}
+                  <Link
+                    className="text-link underline underline-offset-4"
+                    href="/work/whisper"
+                  >
+                    OpenWhisper
+                  </Link>
+                  , a privacy-first Linux dictation app.
+                </p>
+                <p>
+                  My strongest interests are backend engineering, AI
+                  engineering, and system design. I&apos;m currently open to
+                  full-stack and backend engineering opportunities.
+                </p>
+              </div>
+            </section>
           </div>
 
           <aside className="lg:col-span-4 lg:col-start-9">
@@ -107,7 +175,8 @@ export default function AboutPage() {
                     }
                     className="more-link text-base"
                   >
-                    {item.label} <span className="arrow">&rarr;</span>
+                    {item.label === "Email" ? "Email me" : item.label}{" "}
+                    <span className="arrow">&rarr;</span>
                   </a>
                 </li>
               ))}
