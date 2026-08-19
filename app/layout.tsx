@@ -81,9 +81,6 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.name, url: absoluteUrl("/about") }],
   creator: siteConfig.bilingualName,
   publisher: siteConfig.bilingualName,
-  icons: {
-    icon: "/favicon.ico",
-  },
   alternates: {
     types: {
       "application/rss+xml": absoluteUrl("/feed.xml"),
