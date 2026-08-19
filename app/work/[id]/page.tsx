@@ -148,15 +148,20 @@ export default async function WorkDetailPage({ params }: PageProps) {
 
       <div
         className="prose-d6 fade-in"
-        dangerouslySetInnerHTML={{
-          __html: project?.links?.github
-            ? html.replace(
-                /<\/p>\s*$/,
-                `<br/><a href="${project.links.github}" target="_blank" rel="noopener noreferrer" class="more-link">View Repo <span class="arrow">&rarr;</span></a></p>`
-              )
-            : html,
-        }}
+        dangerouslySetInnerHTML={{ __html: html }}
       />
+
+      {project?.links?.github && (
+        <a
+          href={project.links.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-10 inline-flex items-center gap-3 border border-contrast bg-contrast px-4 py-3 font-mono text-sm font-bold [color:var(--base)] hover:border-acid hover:bg-acid hover:text-stone"
+        >
+          View {title} on GitHub
+          <span aria-hidden="true">↗</span>
+        </a>
+      )}
 
       <hr className="h-[1px] bg-line border-0 mt-12 mb-8" />
 

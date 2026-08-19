@@ -1,5 +1,5 @@
 +++
-title = "Whisper"
+title = "OpenWhisper"
 type = "project"
 description = "A voice dictation tool for Linux using faster-whisper. Toggle recording, auto-type transcription into any window."
 symbol = "~"
@@ -8,7 +8,7 @@ featured = true
 [taxonomies]
 tags = ["Python", "Whisper", "Linux", "Voice"]
 [extra]
-github = "https://github.com/yousufaltayeb/whisper"
+github = "https://github.com/yousufaltayeb/openwhisper"
 +++
 
 There is no working voice dictation tool for Linux. The only one I could find was soupawhisper, and it didn't work on Void Linux. So I built my own.
