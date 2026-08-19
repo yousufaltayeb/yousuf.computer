@@ -73,6 +73,7 @@ export default async function LegacyPostPage({ params }: LegacyPostPageProps) {
     <LegacyCanonicalPage
       targetPath={destination}
       title={post ? post.title : "Post moved"}
+      lang={post?.lang === "ar" ? "ar" : "en"}
     />
   );
 }

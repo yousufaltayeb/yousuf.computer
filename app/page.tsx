@@ -124,16 +124,30 @@ export default async function Home() {
             <h3 className="text-contrast mb-4 font-mono">Recent Writing</h3>
             <hr className="h-[1px] bg-line border-0 mb-8" />
             <ul>
-              {recentPosts.map((post) => (
-                <li key={post.slug} className="block mb-4">
-                  <time className="font-mono text-contrast-shaded text-sm block mb-1">
-                    {post.date}
-                  </time>
-                  <Link href={`/thoughts/${post.slug}`}>
-                    <h3 className="text-xl font-bold">{post.title}</h3>
-                  </Link>
-                </li>
-              ))}
+              {recentPosts.map((post) => {
+                const isRtl = post.lang === "ar";
+
+                return (
+                  <li
+                    key={post.slug}
+                    className="block mb-4"
+                    lang={isRtl ? "ar" : "en"}
+                    dir={isRtl ? "rtl" : "ltr"}
+                  >
+                    <time
+                      dateTime={post.date}
+                      className="font-mono text-contrast-shaded text-sm block mb-1"
+                    >
+                      {post.date}
+                    </time>
+                    <Link href={`/thoughts/${post.slug}`}>
+                      <h3 className="text-xl font-bold">
+                        <bdi dir="auto">{post.title}</bdi>
+                      </h3>
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
             <Link href="/thoughts" className="more-link mt-8">
               View all writing <span className="arrow">&rarr;</span>

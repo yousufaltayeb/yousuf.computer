@@ -43,20 +43,29 @@ export default async function ThoughtsPage() {
       <section className="pt-12 sm:pt-16 pb-20 fade-in">
         <div className="flex flex-col gap-8">
           {posts.length > 0 ? (
-            posts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/thoughts/${post.slug}`}
-                className="group block"
-              >
-                <time className="font-mono text-contrast-shaded text-sm block mb-1">
-                  {formatDateShort(post.date)}
-                </time>
-                <h2 className="text-3xl font-bold leading-snug">
-                  {post.title}
-                </h2>
-              </Link>
-            ))
+            posts.map((post) => {
+              const isRtl = post.lang === "ar";
+
+              return (
+                <Link
+                  key={post.slug}
+                  href={`/thoughts/${post.slug}`}
+                  className="group block"
+                  lang={isRtl ? "ar" : "en"}
+                  dir={isRtl ? "rtl" : "ltr"}
+                >
+                  <time
+                    dateTime={post.date}
+                    className="font-mono text-contrast-shaded text-sm block mb-1"
+                  >
+                    {formatDateShort(post.date)}
+                  </time>
+                  <h2 className="text-3xl font-bold leading-snug">
+                    <bdi dir="auto">{post.title}</bdi>
+                  </h2>
+                </Link>
+              );
+            })
           ) : (
             <p className="text-contrast-shaded">No thoughts yet.</p>
           )}

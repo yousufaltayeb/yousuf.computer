@@ -162,7 +162,7 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
           style: { fontFamily: "var(--font-arabic-display)" },
         })}
       >
-        {post.title}
+        <bdi dir="auto">{post.title}</bdi>
       </h1>
 
       <div className="font-mono text-sm text-contrast-shaded mb-14 intro-animation">
@@ -199,11 +199,11 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
               <li key={related.slug}>
                 <Link
                   href={`/thoughts/${related.slug}`}
-                  className="text-xl font-bold"
+                  className="block text-xl font-bold"
                   lang={related.lang === "ar" ? "ar" : "en"}
                   dir={related.lang === "ar" ? "rtl" : "ltr"}
                 >
-                  {related.title}
+                  <bdi dir="auto">{related.title}</bdi>
                 </Link>
               </li>
             ))}
