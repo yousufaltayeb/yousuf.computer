@@ -31,6 +31,13 @@ export const metadata: Metadata = {
 export default async function Home() {
   const [posts, allProjects] = await Promise.all([getAllPostMeta(), getAllProjects()]);
   const recentPosts = posts.slice(0, 5);
+  const heroLinks = [
+    { label: "View selected work →", href: "/work" },
+    { label: "Email me →", href: `mailto:${siteConfig.email}` },
+    ...siteConfig.social.filter(({ label }) =>
+      ["GitHub", "LinkedIn"].includes(label),
+    ),
+  ];
 
   return (
     <>
@@ -58,21 +65,40 @@ export default async function Home() {
           </span>
         </h1>
         <h2 className="text-2xl max-w-[820px] text-contrast-shaded">
-          Software engineer based in Riyadh, building web software, tools, and
-          writing.
+          Full-stack engineer based in Riyadh, focused on backend systems and
+          product engineering.
         </h2>
+        <p className="mt-5 max-w-[760px] text-lg leading-relaxed text-contrast-shaded">
+          I work across the stack, but I’m most interested in backend
+          engineering, AI engineering, and system design. My recent work
+          includes production web products, backend systems, and developer
+          tools.
+        </p>
+        <p className="mt-4 font-mono text-sm text-contrast-shaded">
+          Currently open to full-stack and backend engineering opportunities.
+        </p>
         <div className="flex flex-wrap items-center gap-2 lg:gap-8 mt-8">
-          {siteConfig.social.map(({ label, href }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-              className="cursor-alias underline"
-            >
-              {label}
-            </a>
-          ))}
+          {heroLinks.map(({ label, href }) =>
+            href.startsWith("/") ? (
+              <Link key={label} href={href} className="underline">
+                {label}
+              </Link>
+            ) : (
+              <a
+                key={label}
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                className={
+                  href.startsWith("http")
+                    ? "cursor-alias underline"
+                    : "underline"
+                }
+              >
+                {label}
+              </a>
+            ),
+          )}
         </div>
       </section>
 
@@ -81,7 +107,7 @@ export default async function Home() {
         <div className="lg:grid grid-cols-12 gap-12">
           {/* About Me */}
           <div className="col-span-8">
-            <h3 className="text-contrast mb-4 font-mono">About Me</h3>
+            <h3 className="text-contrast mb-4 font-mono">My Path</h3>
             <hr className="h-[1px] bg-line border-0 mb-8" />
             <article className="mb-8">
               <div className="bg-faint aspect-video px-4">
@@ -95,7 +121,7 @@ export default async function Home() {
 
           {/* Recent Thoughts */}
           <div className="col-span-4">
-            <h3 className="text-contrast mb-4 font-mono">Recent Thoughts</h3>
+            <h3 className="text-contrast mb-4 font-mono">Recent Writing</h3>
             <hr className="h-[1px] bg-line border-0 mb-8" />
             <ul>
               {recentPosts.map((post) => (
@@ -110,7 +136,7 @@ export default async function Home() {
               ))}
             </ul>
             <Link href="/thoughts" className="more-link mt-8">
-              More <span className="arrow">&rarr;</span>
+              View all writing <span className="arrow">&rarr;</span>
             </Link>
           </div>
         </div>
@@ -118,7 +144,7 @@ export default async function Home() {
 
       {/* Projects */}
       <section className="fade-in pt-12">
-        <h3 className="text-contrast mb-4 font-mono">Projects</h3>
+        <h3 className="text-contrast mb-4 font-mono">Selected Work</h3>
         <hr className="h-[1px] bg-line border-0 mb-8" />
         <div className="flex gap-4 overflow-auto scrollbar-hide">
           {allProjects
@@ -146,7 +172,7 @@ export default async function Home() {
             ))}
         </div>
         <Link href="/work" className="more-link mt-4">
-          More <span className="arrow">&rarr;</span>
+          View all work <span className="arrow">&rarr;</span>
         </Link>
       </section>
     </>

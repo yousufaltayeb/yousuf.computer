@@ -15,7 +15,7 @@ interface SocialImageOptions {
 
 export async function createSocialImage({
   title,
-  label = "Software engineer · Riyadh, Saudi Arabia",
+  label = "Full-stack & backend engineer · Riyadh, Saudi Arabia",
   lang = "en",
 }: SocialImageOptions) {
   const [departureMono, thmanyahText] = await Promise.all([
