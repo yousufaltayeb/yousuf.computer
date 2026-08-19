@@ -89,15 +89,6 @@ export default function AboutPage() {
                   authorization, background jobs, and the operational details
                   that make systems reliable.
                 </p>
-                <p
-                  className="font-arabic text-2xl leading-relaxed"
-                  dir="rtl"
-                  lang="ar"
-                >
-                  أنا يوسف الطيب، مهندس برمجيات مقيم في الرياض. أعمل على تطوير
-                  المنتجات عبر الواجهات والأنظمة الخلفية، مع تركيز خاص على هندسة
-                  الأنظمة الخلفية والذكاء الاصطناعي وتصميم الأنظمة.
-                </p>
               </div>
             </section>
 
