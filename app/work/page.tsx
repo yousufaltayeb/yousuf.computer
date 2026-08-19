@@ -47,20 +47,35 @@ export default async function WorkPage() {
             <Link
               key={job.id}
               href={`/work/${job.id}`}
-              className="bg-faint border border-faint p-8 aspect-video relative flex flex-col items-center justify-center"
+              className="group relative flex min-h-[270px] flex-col justify-between overflow-hidden border border-faint bg-faint p-6 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:origin-left before:scale-x-0 before:bg-acid before:transition-transform before:duration-300 hover:border-contrast hover:before:scale-x-100 focus-visible:before:scale-x-100 sm:p-8"
             >
-              <span
-                className="font-mono text-5xl select-none text-contrast opacity-20 font-bold tracking-tighter"
-                aria-hidden="true"
-              >
-                {job.symbol}
-              </span>
-              <div className="absolute bottom-4 left-4 flex flex-col">
-                <span className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider">
+              <div className="flex items-start justify-between gap-4">
+                <span
+                  className="font-mono text-sm font-bold text-acid"
+                  aria-hidden="true"
+                >
+                  {job.symbol}
+                </span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-contrast/75">
                   {job.period}
                 </span>
-                <span className="text-contrast text-[14px] font-medium">
+              </div>
+
+              <div className="py-8">
+                <h4 className="max-w-[20ch] font-mono text-[clamp(1.65rem,3vw,2.6rem)] font-bold leading-[1.05] tracking-tighter text-contrast">
                   {job.company}
+                </h4>
+              </div>
+
+              <div className="flex items-end justify-between gap-4">
+                <p className="max-w-[34ch] text-sm leading-snug text-contrast-shaded">
+                  {job.role}
+                </p>
+                <span
+                  className="font-mono text-lg text-contrast-shaded transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-acid"
+                  aria-hidden="true"
+                >
+                  ↗
                 </span>
               </div>
             </Link>
@@ -77,22 +92,42 @@ export default async function WorkPage() {
             <Link
               key={project.id}
               href={`/work/${project.id}`}
-              className="bg-faint border border-faint overflow-hidden block group"
+              className="group relative flex min-h-[340px] flex-col justify-between overflow-hidden border border-faint bg-faint p-6 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:origin-left before:scale-x-0 before:bg-acid before:transition-transform before:duration-300 hover:border-contrast hover:before:scale-x-100 focus-visible:before:scale-x-100 sm:p-8"
             >
-              <div className="flex items-center justify-center aspect-[4/3]">
+              <div className="flex items-start justify-between gap-4">
                 <span
-                  className="font-mono text-4xl select-none text-contrast opacity-20 font-bold tracking-tighter"
+                  className="font-mono text-sm font-bold text-acid"
                   aria-hidden="true"
                 >
                   {project.symbol || "{ }"}
                 </span>
-              </div>
-              <div className="px-5 pb-5">
-                <div className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider mb-1">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-contrast/75">
                   {project.year}
-                </div>
-                <div className="text-[14px] text-contrast font-medium">
+                </span>
+              </div>
+
+              <div className="py-8">
+                <h4 className="max-w-[18ch] font-mono text-[clamp(1.8rem,3.5vw,3.25rem)] font-bold leading-[1.02] tracking-tighter text-contrast">
                   {project.title}
+                </h4>
+              </div>
+
+              <div>
+                <p className="line-clamp-2 max-w-[52ch] text-sm leading-relaxed text-contrast-shaded">
+                  {project.description}
+                </p>
+                <div className="mt-5 flex items-end justify-between gap-4">
+                  <ul className="flex flex-wrap gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-wider text-contrast/75">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <li key={tag}>{tag}</li>
+                    ))}
+                  </ul>
+                  <span
+                    className="font-mono text-lg text-contrast-shaded transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-acid"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
                 </div>
               </div>
             </Link>

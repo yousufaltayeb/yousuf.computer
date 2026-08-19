@@ -153,19 +153,40 @@ export default async function Home() {
               <Link
                 key={project.id}
                 href={`/work/${project.id}`}
-                className="bg-faint border border-faint overflow-hidden block min-w-[250px] flex-1"
+                className="group relative flex min-h-[260px] min-w-[270px] flex-1 flex-col justify-between overflow-hidden border border-faint bg-faint p-5 before:absolute before:inset-x-0 before:top-0 before:h-0.5 before:origin-left before:scale-x-0 before:bg-acid before:transition-transform before:duration-300 hover:border-contrast hover:before:scale-x-100 focus-visible:before:scale-x-100"
               >
-                <div className="flex items-center justify-center aspect-[4/3]">
-                  <span className="font-mono text-4xl select-none text-contrast opacity-20 font-bold tracking-tighter" aria-hidden="true">
+                <div className="flex items-start justify-between gap-4">
+                  <span
+                    className="font-mono text-xs font-bold text-acid"
+                    aria-hidden="true"
+                  >
                     {project.symbol || "{ }"}
                   </span>
-                </div>
-                <div className="px-5 pb-5">
-                  <div className="font-mono text-[10px] text-contrast/75 uppercase tracking-wider mb-1">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-contrast/75">
                     {project.year}
-                  </div>
-                  <div className="text-[14px] text-contrast font-medium">
+                  </span>
+                </div>
+
+                <div className="py-6">
+                  <h4 className="max-w-[16ch] font-mono text-3xl font-bold leading-none tracking-tighter text-contrast">
                     {project.title}
+                  </h4>
+                </div>
+
+                <div>
+                  <p className="line-clamp-2 text-xs leading-relaxed text-contrast-shaded">
+                    {project.description}
+                  </p>
+                  <div className="mt-4 flex items-center justify-between gap-4">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-contrast/75">
+                      {project.tags.slice(0, 2).join(" · ")}
+                    </span>
+                    <span
+                      className="font-mono text-[1rem] text-contrast-shaded transition-transform duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-acid"
+                      aria-hidden="true"
+                    >
+                      ↗
+                    </span>
                   </div>
                 </div>
               </Link>
