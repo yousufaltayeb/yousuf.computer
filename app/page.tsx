@@ -66,7 +66,7 @@ export default async function Home() {
         </h1>
         <h2 className="text-2xl max-w-[820px] text-contrast-shaded">
           Full-stack engineer based in Riyadh, focused on backend systems and
-          product engineering.
+          AI engineering.
         </h2>
         <p className="mt-5 max-w-[760px] text-lg leading-relaxed text-contrast-shaded">
           I work across the stack, but I’m most interested in backend

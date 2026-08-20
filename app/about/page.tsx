@@ -107,8 +107,7 @@ export default function AboutPage() {
                 <p>
                   After years of studying and building independently, I joined
                   Grandshift as a software engineer, working across NestJS
-                  backends and frontend applications on payment, notification,
-                  and POS systems.
+                  backends and Next.js frontends.
                 </p>
               </div>
             </section>
@@ -132,10 +131,17 @@ export default function AboutPage() {
                   >
                     Mutamad
                   </Link>
-                  , a bilingual construction-management platform; and{" "}
+                  , a bilingual construction-management platform;{" "}
                   <Link
                     className="text-link underline underline-offset-4"
-                    href="/work/whisper"
+                    href="/work/medseras-com"
+                  >
+                    Medseras
+                  </Link>
+                  , a bilingual educational community platform; and{" "}
+                  <Link
+                    className="text-link underline underline-offset-4"
+                    href="/work/openwhisper"
                   >
                     OpenWhisper
                   </Link>
