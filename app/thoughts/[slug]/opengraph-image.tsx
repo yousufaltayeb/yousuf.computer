@@ -28,8 +28,8 @@ export default async function OpenGraphImage({ params }: OpenGraphImageProps) {
     title: post.title,
     label:
       post.lang === "ar"
-        ? `Technical writing · yousuf.computer`
-        : `${post.readingTimeMinutes} min read · yousuf.computer`,
+        ? `Technical writing`
+        : `${post.readingTimeMinutes} min read`,
     lang: post.lang === "ar" ? "ar" : "en",
   });
 }

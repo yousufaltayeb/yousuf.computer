@@ -1,11 +1,7 @@
-import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { ImageResponse } from "next/og";
+import sharp from "sharp";
 
-export const socialImageSize = {
-  width: 1200,
-  height: 630,
-};
+export const socialImageSize = { width: 1200, height: 630 };
 
 interface SocialImageOptions {
   title: string;
@@ -13,159 +9,90 @@ interface SocialImageOptions {
   lang?: "en" | "ar";
 }
 
+const fonts = {
+  en: { family: "Departure Mono", file: "DepartureMono-Regular.ttf" },
+  ar: { family: "thmanyah serif text Bold", file: "ThmanyahSerifText-Bold.ttf" },
+};
+
+function escapeMarkup(text: string) {
+  return text.replace(/[&<>"']/g, (character) => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;",
+  })[character]!);
+}
+
+async function renderText(
+  text: string,
+  lang: "en" | "ar",
+  size: number,
+  color: string,
+  width = 1056,
+) {
+  const font = fonts[lang];
+  // Pango shapes the complete paragraph, including Arabic/Latin bidi runs.
+  // Its default start alignment follows the paragraph's writing direction.
+  return sharp({
+    text: {
+      text: `<span foreground="${color}">${lang === "ar"
+        ? text.split(/([A-Za-z][A-Za-z0-9]*)/g).map((part) =>
+            /^[A-Za-z]/.test(part)
+              ? `<span font_family="Departure Mono" weight="normal">${escapeMarkup(part)}</span>`
+              : escapeMarkup(part),
+          ).join("")
+        : escapeMarkup(text)}</span>`,
+      font: `${font.family} ${size}`,
+      fontfile: join(process.cwd(), "app/fonts", font.file),
+      width,
+      align: "left",
+      wrap: "word-char",
+      spacing: Math.round(size * 0.2),
+      rgba: true,
+    },
+  }).png().toBuffer({ resolveWithObject: true });
+}
+
 export async function createSocialImage({
   title,
   label = "Full-stack & backend engineer · Riyadh, Saudi Arabia",
   lang = "en",
 }: SocialImageOptions) {
-  const [departureMono, thmanyahText] = await Promise.all([
-    readFile(join(process.cwd(), "app/fonts/DepartureMono-Regular.ttf")),
-    readFile(join(process.cwd(), "app/fonts/ThmanyahSerifText-Bold.ttf")),
-  ]);
-
   const isArabic = lang === "ar";
+  // Register the bundled Latin font before shaping mixed-language titles.
+  const brand = await renderText("yousuf >", "en", 24, "#f7f5f1");
+  // Fit measured glyphs rather than guessing from character count.
+  let titleSize = isArabic ? 88 : 76;
+  let heading = await renderText(title, lang, titleSize, "#dfff56");
+  while (heading.info.height > 260 && titleSize > 24) {
+    titleSize -= 2;
+    heading = await renderText(title, lang, titleSize, "#dfff56");
+  }
+  if (heading.info.height > 260) {
+    throw new Error("Social image title exceeds the available space");
+  }
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          position: "relative",
-          background: "#282725",
-          color: "#f7f5f1",
-          padding: "64px 72px",
-          border: "2px solid #343330",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            position: "absolute",
-            top: 64,
-            left: 72,
-            right: 72,
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontFamily: "Departure Mono",
-            fontSize: 24,
-          }}
-        >
-          <span>yousuf &gt;</span>
-          <span style={{ color: "#d2d6c5" }}>yousuf.computer</span>
-        </div>
+  const [domain, caption, author, arabicAuthor] = await Promise.all([
+    renderText("yousuf.computer", "en", 24, "#d2d6c5"),
+    renderText(label, "en", 22, "#d2d6c5"),
+    renderText("Yousuf Altayeb", "en", 24, "#f7f5f1"),
+    renderText("يوسف الطيب", "ar", 28, "#d2d6c5"),
+  ]);
+  const decorations = Buffer.from(`<svg width="1200" height="630">
+    <rect x="72" y="124" width="1056" height="1" fill="#55534c"/>
+    <rect x="${isArabic ? 1064 : 72}" y="162" width="64" height="8" fill="#dfff56"/>
+    <rect x="72" y="522" width="1056" height="1" fill="#55534c"/>
+  </svg>`);
+  const png = await sharp({
+    create: { ...socialImageSize, channels: 4, background: "#282725" },
+  }).composite([
+    { input: decorations, top: 0, left: 0 },
+    { input: brand.data, top: 64, left: 72 },
+    { input: domain.data, top: 64, left: 1128 - domain.info.width },
+    { input: heading.data, top: 196 + Math.floor((260 - heading.info.height) / 2), left: isArabic ? 1128 - heading.info.width : 72 },
+    { input: caption.data, top: 486, left: isArabic ? 1128 - caption.info.width : 72 },
+    { input: author.data, top: 556, left: 72 },
+    { input: arabicAuthor.data, top: 550, left: 1128 - arabicAuthor.info.width },
+  ]).png().toBuffer();
 
-        <div
-          style={{
-            display: "flex",
-            position: "absolute",
-            top: 170,
-            left: 72,
-            right: 72,
-            flexDirection: "column",
-            gap: 28,
-            height: 300,
-            justifyContent: "center",
-            maxWidth: 1050,
-            alignItems: isArabic ? "flex-end" : "flex-start",
-            alignSelf: isArabic ? "flex-end" : "flex-start",
-            textAlign: isArabic ? "right" : "left",
-          }}
-        >
-          <div
-            style={{
-              width: 108,
-              height: 10,
-              display: "flex",
-              background: "#dfff56",
-            }}
-          />
-          <div
-            style={{
-              display: "flex",
-              color: "#dfff56",
-              fontFamily: isArabic ? "Thmanyah Text" : "Departure Mono",
-              fontSize: isArabic
-                ? title.length > 62
-                  ? 46
-                  : 58
-                : title.length > 62
-                  ? 54
-                  : title.length > 38
-                    ? 64
-                    : 76,
-              lineHeight: isArabic ? 0.95 : 1.12,
-              letterSpacing: isArabic ? 0 : -2,
-              flexDirection: isArabic ? "row-reverse" : "row",
-              flexWrap: "wrap",
-              justifyContent: isArabic ? "flex-start" : "flex-start",
-            }}
-          >
-            {isArabic
-              ? title.split(/\s+/).map((word, index) => (
-                  <span
-                    key={`${word}-${index}`}
-                    style={{
-                      fontFamily: /[\u0600-\u06ff]/.test(word)
-                        ? "Thmanyah Text"
-                        : "Departure Mono",
-                      marginLeft: 18,
-                    }}
-                  >
-                    {word}
-                  </span>
-                ))
-              : title}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              color: "#d2d6c5",
-              fontFamily: "Departure Mono",
-              fontSize: 25,
-            }}
-          >
-            {label}
-          </div>
-        </div>
-
-        <div
-          style={{
-            display: "flex",
-            position: "absolute",
-            bottom: 64,
-            left: 72,
-            alignItems: "center",
-            gap: 14,
-            fontSize: 24,
-          }}
-        >
-          <span style={{ fontFamily: "Departure Mono" }}>Yousuf Altayeb</span>
-          <span style={{ color: "#d2d6c5", fontFamily: "Departure Mono" }}>/</span>
-          <span style={{ fontFamily: "Thmanyah Text" }}>
-            يوسف الطيب
-          </span>
-        </div>
-      </div>
-    ),
-    {
-      ...socialImageSize,
-      fonts: [
-        {
-          name: "Departure Mono",
-          data: departureMono,
-          style: "normal",
-          weight: 400,
-        },
-        {
-          name: "Thmanyah Text",
-          data: thmanyahText,
-          style: "normal",
-          weight: 700,
-        },
-      ],
-    },
-  );
+  return new Response(new Uint8Array(png), {
+    headers: { "Content-Type": "image/png" },
+  });
 }
