@@ -9,7 +9,7 @@
   display: none;
 }
 
-/* Color System — light default, dark via prefers-color-scheme */
+/* Color System — dark default, light via [data-theme="light"] on <html> */
 :root {
   --stone: #282725;
   --stone-shaded: #343330;
@@ -20,6 +20,21 @@
   --vellum: #EEEAE3;
   --acid: #dfff56;
 
+  /* Tells native UI (scrollbars, form controls, pre-paint canvas) which way we lean */
+  color-scheme: dark;
+
+  --base: var(--stone);
+  --base-shaded: var(--stone-shaded);
+  --contrast: var(--ghost);
+  --contrast-shaded: var(--ghost-shaded);
+  --accent: var(--lichen);
+  --shadow-line: rgba(62, 61, 58, 0.5);
+  --faint: var(--stone-shaded);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
   --base: var(--ghost);
   --base-shaded: var(--ghost-shaded);
   --contrast: var(--stone);
@@ -27,18 +42,6 @@
   --accent: var(--eggplant);
   --shadow-line: var(--vellum);
   --faint: var(--vellum);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --base: var(--stone);
-    --base-shaded: var(--stone-shaded);
-    --contrast: var(--ghost);
-    --contrast-shaded: var(--ghost-shaded);
-    --accent: var(--lichen);
-    --shadow-line: rgba(62, 61, 58, 0.5);
-    --faint: var(--stone-shaded);
-  }
 }
 
 @theme inline {

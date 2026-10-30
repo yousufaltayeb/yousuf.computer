@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function Header() {
                 </Link>
               );
             })}
+            <ThemeToggle />
           </div>
         </div>
         <hr className="h-[1px] bg-line border-0" />

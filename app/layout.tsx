@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { THEME_BAR_COLOR, themeInitScript } from "@/lib/theme";
 import {
   absoluteUrl,
   defaultSocialImage,
@@ -123,14 +124,25 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  // Dark is the default; ThemeToggle rewrites this tag when the visitor switches.
+  themeColor: THEME_BAR_COLOR.dark,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${departureMono.variable} ${thmanyahText.variable} ${thmanyahDisplay.variable}`}>
+    <html
+      lang="en"
+      data-theme="dark"
+      suppressHydrationWarning
+      className={`${spaceGrotesk.variable} ${departureMono.variable} ${thmanyahText.variable} ${thmanyahDisplay.variable}`}
+    >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <link
           rel="alternate"
           type="application/rss+xml"
