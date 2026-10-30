@@ -44,6 +44,12 @@
   --faint: var(--vellum);
 }
 
+/* Theme toggle — only the direction you can switch to is shown */
+:root[data-theme="dark"] [data-theme-switch="dark"],
+:root[data-theme="light"] [data-theme-switch="light"] {
+  display: none;
+}
+
 @theme inline {
   --color-base: var(--base);
   --color-base-shaded: var(--base-shaded);

@@ -7,7 +7,6 @@ import {
   defaultSocialImage,
   personId,
   safeJsonLd,
-  siteConfig,
   websiteId,
 } from "@/lib/site";
 

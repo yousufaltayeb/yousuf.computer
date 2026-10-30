@@ -83,9 +83,23 @@ function getContentMetrics(markdown: string) {
   };
 }
 
+/** Frontmatter fields we read; all optional, since posts predate this shape. */
+interface PostFrontmatter {
+  title?: string;
+  description?: unknown;
+  date?: unknown;
+  updated?: unknown;
+  taxonomies?: { tags?: unknown };
+  extra?: {
+    description?: unknown;
+    updated?: unknown;
+    lang?: string;
+  };
+}
+
 function postMetaFromContent(
   file: string,
-  data: Record<string, any>,
+  data: PostFrontmatter,
   content: string,
 ): PostMeta {
   const metrics = getContentMetrics(content);

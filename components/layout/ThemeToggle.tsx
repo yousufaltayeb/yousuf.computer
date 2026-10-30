@@ -1,12 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import {
-  DEFAULT_THEME,
-  THEME_BAR_COLOR,
-  THEME_STORAGE_KEY,
-  type Theme,
-} from "@/lib/theme";
+import { THEME_BAR_COLOR, THEME_STORAGE_KEY, type Theme } from "@/lib/theme";
 
 function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
@@ -20,31 +14,32 @@ function applyTheme(theme: Theme) {
   }
 }
 
+/**
+ * Renders both directions and lets CSS hide the one that isn't on offer, keyed
+ * off data-theme. No client state, so the right icon is up on the first paint.
+ */
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>(DEFAULT_THEME);
+  return (
+    <>
+      <ThemeSwitch target="light" />
+      <ThemeSwitch target="dark" />
+    </>
+  );
+}
 
-  // The <head> script already resolved the theme; read it back so the button
-  // describes what the visitor is actually looking at.
-  useEffect(() => {
-    setTheme(
-      document.documentElement.dataset.theme === "light" ? "light" : "dark",
-    );
-  }, []);
-
-  const next: Theme = theme === "dark" ? "light" : "dark";
+function ThemeSwitch({ target }: { target: Theme }) {
+  const label = `Switch to ${target} theme`;
 
   return (
     <button
       type="button"
-      onClick={() => {
-        setTheme(next);
-        applyTheme(next);
-      }}
-      aria-label={`Switch to ${next} theme`}
-      title={`Switch to ${next} theme`}
+      data-theme-switch={target}
+      onClick={() => applyTheme(target)}
+      aria-label={label}
+      title={label}
       className="-m-1 p-1 text-contrast-shaded hover:text-accent"
     >
-      {theme === "dark" ? <SunIcon /> : <MoonIcon />}
+      {target === "light" ? <SunIcon /> : <MoonIcon />}
     </button>
   );
 }

@@ -2,8 +2,6 @@ export type Theme = "dark" | "light";
 
 export const THEME_STORAGE_KEY = "theme";
 
-export const DEFAULT_THEME: Theme = "dark";
-
 /** Browser-UI bar color per theme — kept in step with --base in globals.css. */
 export const THEME_BAR_COLOR: Record<Theme, string> = {
   dark: "#282725",
