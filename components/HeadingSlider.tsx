@@ -87,16 +87,25 @@ export default function HeadingSlider() {
     []
   );
 
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-    window.removeEventListener("mousemove", handleChange);
-    window.removeEventListener("mouseup", handleMouseUp);
-  }, [handleChange]);
+  // Teardown for the drag currently in flight, so a mousedown that arrives
+  // mid-drag — or an unmount — can detach the listeners it registered.
+  const endDrag = useRef<(() => void) | null>(null);
 
   function handleMouseDown() {
+    endDrag.current?.();
     setIsDragging(true);
+
+    // Declared as a hoisted function so it can name itself when detaching.
+    function onMouseUp() {
+      setIsDragging(false);
+      window.removeEventListener("mousemove", handleChange);
+      window.removeEventListener("mouseup", onMouseUp);
+      endDrag.current = null;
+    }
+
+    endDrag.current = onMouseUp;
     window.addEventListener("mousemove", handleChange);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("mouseup", onMouseUp);
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
@@ -136,10 +145,9 @@ export default function HeadingSlider() {
     }
     return () => {
       observer.disconnect();
-      window.removeEventListener("mousemove", handleChange);
-      window.removeEventListener("mouseup", handleMouseUp);
+      endDrag.current?.();
     };
-  }, [handleChange, handleMouseUp]);
+  }, []);
 
   const motionProps = prefersReducedMotion
     ? {}
