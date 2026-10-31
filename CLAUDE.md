@@ -21,8 +21,8 @@ Visitors are primarily developers, hiring managers, and peers exploring Yousuf's
 - **Visual tone:** Clean developer portfolio — terminal-inspired monospace accents layered over warm, organic earth tones. Not sterile or cold.
 - **References:** Developer portfolios like leerob.io, rauno.me, paco.me — minimal chrome, content-forward, tasteful craft.
 - **Anti-references:** Over-designed agency sites, heavy illustration, generic Bootstrap templates, or anything that feels corporate or impersonal.
-- **Theme:** Light/dark via `prefers-color-scheme`. Warm neutrals (ghost, vellum, stone) with acid green (`#dfff56`) as the signature accent.
-- **Typography:** Space Grotesk (body), Departure Mono (display/headings/metadata), IBM Plex Sans Arabic (Arabic content). Monospace used intentionally for dates, labels, nav — not everywhere.
+- **Theme:** Dark by default, light via a manual toggle persisted to `localStorage` (`data-theme` on `<html>`). Warm neutrals (ghost, vellum, stone) with acid green (`#dfff56`) as the signature accent.
+- **Typography:** Space Grotesk (body), Departure Mono (display/headings/metadata), Thmanyah Serif (Arabic content — Text for body, Display for headings). Monospace used intentionally for dates, labels, nav — not everywhere.
 
 ### Design Principles
 
@@ -48,5 +48,6 @@ Visitors are primarily developers, hiring managers, and peers exploring Yousuf's
 ```
 --font-sans: Space Grotesk
 --font-mono: Departure Mono
---font-arabic: IBM Plex Sans Arabic
+--font-arabic: Thmanyah Serif Text
+--font-arabic-display: Thmanyah Serif Display
 ```
