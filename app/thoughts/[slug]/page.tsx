@@ -10,6 +10,8 @@ import {
   absoluteUrl,
   personId,
   safeJsonLd,
+  sharedOpenGraph,
+  sharedTwitter,
   siteConfig,
   websiteId,
 } from "@/lib/site";
@@ -38,6 +40,7 @@ export async function generateMetadata({ params }: ThoughtPageProps): Promise<Me
       canonical: url,
     },
     openGraph: {
+      ...sharedOpenGraph,
       title: post.title,
       description: post.description,
       type: "article",
@@ -56,7 +59,7 @@ export async function generateMetadata({ params }: ThoughtPageProps): Promise<Me
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      ...sharedTwitter,
       title: post.title,
       description: post.description,
       images: [socialImage],

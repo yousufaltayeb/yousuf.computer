@@ -118,6 +118,23 @@ export async function getAllProjects(): Promise<Project[]> {
   return projects.sort((a, b) => (b.year || 0) - (a.year || 0));
 }
 
+/**
+ * Maps each work/project id to its markdown source, relative to the repo root.
+ * The sitemap needs it because neither type carries a date in its frontmatter.
+ */
+export function getWorkSourcePaths(): Map<string, string> {
+  const paths = new Map<string, string>();
+
+  for (const dir of [WORK_DIR, PROJECTS_DIR]) {
+    if (!fs.existsSync(dir)) continue;
+    for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.md'))) {
+      paths.set(slugify(file), path.relative(process.cwd(), path.join(dir, file)));
+    }
+  }
+
+  return paths;
+}
+
 export async function getProjectById(id: string): Promise<Project | undefined> {
   const projects = await getAllProjects();
   return projects.find((p) => p.id === id);

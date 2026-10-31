@@ -7,6 +7,8 @@ import {
   defaultSocialImage,
   personId,
   safeJsonLd,
+  sharedOpenGraph,
+  sharedTwitter,
   websiteId,
 } from "@/lib/site";
 
@@ -38,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: url,
     },
     openGraph: {
+      ...sharedOpenGraph,
       title,
       description,
       type: "article",
@@ -45,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [defaultSocialImage],
     },
     twitter: {
-      card: "summary_large_image",
+      ...sharedTwitter,
       title,
       description,
       images: [defaultSocialImage],

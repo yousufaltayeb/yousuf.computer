@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProjects, getAllJobs } from "@/lib/portfolio-data";
-import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, sharedOpenGraph, sharedTwitter, siteConfig } from "@/lib/site";
 
 const description =
   "Work experience and projects by Yousuf Altayeb / يوسف الطيب.";
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     canonical: absoluteUrl("/work"),
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: `Work | ${siteConfig.bilingualName}`,
     description,
     url: absoluteUrl("/work"),
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
     images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: `Work | ${siteConfig.bilingualName}`,
     description,
     images: [defaultSocialImage],

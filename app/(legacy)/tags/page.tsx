@@ -4,6 +4,8 @@ import {
   absoluteUrl,
   defaultSocialImage,
   legacyUrlMappings,
+  sharedOpenGraph,
+  sharedTwitter,
   siteConfig,
 } from "@/lib/site";
 
@@ -24,6 +26,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: `Thoughts | ${siteConfig.bilingualName}`,
     description: `This tag archive moved to ${absoluteUrl(destination)}.`,
     url: absoluteUrl(destination),
@@ -31,7 +34,7 @@ export const metadata: Metadata = {
     images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: `Thoughts | ${siteConfig.bilingualName}`,
     description: `This tag archive moved to ${absoluteUrl(destination)}.`,
     images: [defaultSocialImage],

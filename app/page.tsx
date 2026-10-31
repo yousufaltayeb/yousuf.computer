@@ -3,7 +3,7 @@ import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { getAllProjects } from "@/lib/portfolio-data";
 import HeadingSlider from "@/components/HeadingSlider";
-import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, sharedOpenGraph, sharedTwitter, siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: {
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     canonical: absoluteUrl("/"),
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: siteConfig.title,
     description: siteConfig.description,
     url: absoluteUrl("/"),
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: siteConfig.title,
     description: siteConfig.description,
     images: [defaultSocialImage],

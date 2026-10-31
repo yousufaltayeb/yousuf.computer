@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPostMeta } from "@/lib/posts";
 import { formatDateShort } from "@/lib/utils";
-import { absoluteUrl, defaultSocialImage, siteConfig } from "@/lib/site";
+import { absoluteUrl, defaultSocialImage, sharedOpenGraph, sharedTwitter, siteConfig } from "@/lib/site";
 
 const description =
   "Essays and notes by Yousuf Altayeb / يوسف الطيب on software engineering, JavaScript, security, AI, and the web.";
@@ -14,6 +14,7 @@ export const metadata: Metadata = {
     canonical: absoluteUrl("/thoughts"),
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: `Thoughts | ${siteConfig.bilingualName}`,
     description,
     url: absoluteUrl("/thoughts"),
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: `Thoughts | ${siteConfig.bilingualName}`,
     description,
     images: [defaultSocialImage],

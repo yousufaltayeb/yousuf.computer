@@ -6,6 +6,8 @@ import {
   absoluteUrl,
   defaultSocialImage,
   legacyUrlMappings,
+  sharedOpenGraph,
+  sharedTwitter,
   siteConfig,
 } from "@/lib/site";
 
@@ -44,6 +46,7 @@ export async function generateMetadata({
       follow: true,
     },
     openGraph: {
+      ...sharedOpenGraph,
       title,
       description: `This post moved to ${absoluteUrl(destination)}.`,
       url: absoluteUrl(destination),
@@ -51,7 +54,7 @@ export async function generateMetadata({
       images: [defaultSocialImage],
     },
     twitter: {
-      card: "summary_large_image",
+      ...sharedTwitter,
       title,
       description: `This post moved to ${absoluteUrl(destination)}.`,
       images: [defaultSocialImage],

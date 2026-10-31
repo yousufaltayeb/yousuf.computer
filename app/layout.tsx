@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { sharedOpenGraph, sharedTwitter } from "@/lib/site";
 import { THEME_BAR_COLOR, themeInitScript } from "@/lib/theme";
 import {
   absoluteUrl,
@@ -42,6 +43,7 @@ const thmanyahText = localFont({
   ],
   variable: "--font-thmanyah-text",
   adjustFontFallback: false,
+  preload: false,
 });
 
 const thmanyahDisplay = localFont({
@@ -53,10 +55,6 @@ const thmanyahDisplay = localFont({
     {
       path: "./fonts/ThmanyahSerifDisplay-Bold.woff2",
       weight: "700",
-    },
-    {
-      path: "./fonts/ThmanyahSerifDisplay-Black.woff2",
-      weight: "900",
     },
   ],
   variable: "--font-thmanyah-display",
@@ -99,13 +97,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: siteConfig.title,
     description: siteConfig.description,
     type: "website",
     url: absoluteUrl("/"),
-    siteName: siteConfig.bilingualName,
-    locale: siteConfig.locale,
-    alternateLocale: siteConfig.alternateLocale,
     images: [
       {
         url: defaultSocialImage,
@@ -116,10 +112,9 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: siteConfig.title,
     description: siteConfig.description,
-    creator: "@yousufaltayeb",
     images: [defaultSocialImage],
   },
 };

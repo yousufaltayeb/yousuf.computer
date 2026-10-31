@@ -5,6 +5,8 @@ import {
   defaultSocialImage,
   personJsonLd,
   safeJsonLd,
+  sharedOpenGraph,
+  sharedTwitter,
   siteConfig,
 } from "@/lib/site";
 
@@ -15,6 +17,7 @@ export const metadata: Metadata = {
     canonical: absoluteUrl("/about"),
   },
   openGraph: {
+    ...sharedOpenGraph,
     title: `About ${siteConfig.bilingualName}`,
     description: siteConfig.description,
     url: absoluteUrl("/about"),
@@ -22,7 +25,7 @@ export const metadata: Metadata = {
     images: [defaultSocialImage],
   },
   twitter: {
-    card: "summary_large_image",
+    ...sharedTwitter,
     title: `About ${siteConfig.bilingualName}`,
     description: siteConfig.description,
     images: [defaultSocialImage],

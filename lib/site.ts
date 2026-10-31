@@ -11,6 +11,7 @@ export const siteConfig = {
   locale: "en_US",
   alternateLocale: "ar_SA",
   email: "contact@yousuf.computer",
+  twitterHandle: "@yousufaltayeb",
   social: [
     {
       label: "Twitter/X",
@@ -69,6 +70,22 @@ export const sameAsLinks = siteConfig.social
   .map((item) => item.href)
   .filter((href) => href.startsWith("https://"));
 
+/**
+ * Next replaces the whole `openGraph` / `twitter` object when a page declares
+ * one, rather than deep-merging it with the root layout's. Spread these into
+ * every page-level override so the site-wide fields survive.
+ */
+export const sharedOpenGraph = {
+  siteName: siteConfig.bilingualName,
+  locale: siteConfig.locale,
+  alternateLocale: siteConfig.alternateLocale,
+};
+
+export const sharedTwitter = {
+  card: "summary_large_image" as const,
+  creator: siteConfig.twitterHandle,
+};
+
 export const personId = absoluteUrl("/about#person");
 export const websiteId = absoluteUrl("/#website");
 export const defaultSocialImage = absoluteUrl("/opengraph-image");
@@ -84,6 +101,12 @@ export const personJsonLd = {
   homeLocation: {
     "@type": "Place",
     name: "Riyadh, Saudi Arabia",
+  },
+  image: {
+    "@type": "ImageObject",
+    url: defaultSocialImage,
+    width: 1200,
+    height: 630,
   },
   knowsAbout: [
     "Full-stack engineering",
