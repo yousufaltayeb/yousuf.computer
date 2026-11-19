@@ -50,6 +50,7 @@ function normalizeDate(value: unknown): string {
 function plainTextFromMarkdown(markdown: string): string {
   return markdown
     .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/\{\{viz:[\w-]+\}\}/g, ' ')
     .replace(/<[^>]+>/g, ' ')
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
     .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')

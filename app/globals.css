@@ -170,6 +170,11 @@ a:hover .arrow {
   text-align: left;
 }
 
+/* direction alone does nothing on an inline box; without isolation `5 × 4` reads as `4 × 5` */
+.rtl-post code {
+  unicode-bidi: isolate;
+}
+
 /* Post body prose styles */
 .prose-d6 {
   max-width: 80ch;

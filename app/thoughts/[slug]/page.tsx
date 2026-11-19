@@ -16,6 +16,7 @@ import {
   websiteId,
 } from "@/lib/site";
 import { formatDateLong } from "@/lib/utils";
+import PostBody from "@/components/post-visuals";
 
 interface ThoughtPageProps {
   params: Promise<{ slug: string }>;
@@ -189,8 +190,9 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
         {...(isRtl && {
           style: { fontFamily: "var(--font-arabic)" },
         })}
-        dangerouslySetInnerHTML={{ __html: post.html }}
-      />
+      >
+        <PostBody html={post.html} />
+      </div>
 
       {relatedPosts.length > 0 && (
         <aside className="mt-16" aria-labelledby="related-thoughts">
