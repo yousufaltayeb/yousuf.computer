@@ -1,14 +1,11 @@
 import type { ReactNode } from "react";
 import PoolResultsChart from "./PoolResultsChart";
-import PoolSimulator from "./PoolSimulator";
 
 /**
  * Visuals a post can embed by putting `{{viz:<name>}}` alone on a line of its
  * markdown. Unknown names render nothing rather than leaking the marker.
  */
 const VISUALS: Record<string, () => ReactNode> = {
-  "pool-direct": () => <PoolSimulator />,
-  "pool-bouncer": () => <PoolSimulator bouncer />,
   "results-direct": () => <PoolResultsChart test="direct" />,
   "results-bouncer": () => <PoolResultsChart test="bouncer" />,
 };
