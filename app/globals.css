@@ -293,6 +293,33 @@ pre, code {
   font-family: monospace;
 }
 
+/* Related posts — acid text on dark; on light, acid sits behind dark text to keep contrast */
+.related-link {
+  color: var(--acid);
+  text-decoration: underline transparent;
+  text-underline-offset: 0.25em;
+}
+.related-link:hover {
+  text-decoration-color: currentColor;
+}
+:root[data-theme="light"] .related-link {
+  color: var(--stone);
+  background: var(--acid);
+  padding: 0.1em 0.35em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* Results chart runner: the wrapper is one marker narrower than its lane, so 100% is the far edge */
+.pool-runner {
+  animation: pool-shuttle var(--trip) ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes pool-shuttle {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
 /* Focus indicators (M1) */
 :focus-visible {
   outline: 2px solid var(--acid);

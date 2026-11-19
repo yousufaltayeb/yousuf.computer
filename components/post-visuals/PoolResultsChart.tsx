@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react";
+
 interface Round {
   p95: number;
   dropped?: number;
@@ -93,6 +95,19 @@ const ROUND_OFFSETS = ["28%", "50%", "72%"];
 const position = (ms: number) =>
   `${(Math.log(ms / AXIS_MIN) / Math.log(AXIS_MAX / AXIS_MIN)) * 100}%`;
 
+const median = (values: number[]) => {
+  const sorted = [...values].sort((a, b) => a - b);
+  return sorted[Math.floor(sorted.length / 2)];
+};
+
+/**
+ * Seconds for the runner to cross its lane once, from the median p95 of the
+ * setup's rounds. Square-rooted because the raw range is 200×: linear speed
+ * would leave the slow rows frozen and the fast ones a blur.
+ */
+const tripSeconds = (rounds: Round[]) =>
+  (0.6 * Math.sqrt(median(rounds.map((round) => round.p95)) / 5)).toFixed(2);
+
 const count = (value: number) => value.toLocaleString("en-US");
 
 /** Every round of the pool load test as a dot on a log p95 axis, with the raw values beside it. */
@@ -141,6 +156,17 @@ export default function PoolResultsChart({ test }: { test: "direct" | "bouncer" 
                   />
                 ))}
               </div>
+              <div
+                className="relative mt-1 h-3 overflow-hidden rounded-sm bg-base motion-reduce:hidden"
+                aria-hidden="true"
+              >
+                <div
+                  className="pool-runner absolute inset-y-0 left-0 right-4"
+                  style={{ "--trip": `${tripSeconds(setup.rounds)}s` } as CSSProperties}
+                >
+                  <span className="absolute inset-y-0.5 left-0 w-4 rounded-full border border-stone bg-acid" />
+                </div>
+              </div>
               <div className="mt-1 flex flex-wrap gap-x-3 font-mono text-xs text-contrast/85">
                 {setup.rounds.map((round, index) => (
                   <span key={index}>
@@ -178,6 +204,11 @@ export default function PoolResultsChart({ test }: { test: "direct" | "bouncer" 
         <span className="inline-flex items-center gap-2">
           <span className="size-3 shrink-0 rotate-45 rounded-[1px] border border-stone bg-acid" />
           جولة فيها dropped requests، وعددها بين القوسين
+        </span>
+        <span className="inline-flex items-center gap-2 motion-reduce:hidden">
+          <span className="h-2 w-4 shrink-0 rounded-full border border-stone bg-acid" />
+          العلامة المتحركة: كل ما الـ p95 الوسيط للإعداد أقل، بتتحرك أسرع. السرعة
+          مضغوطة عشان الفرق يبان، فالأرقام تتقرا من النقاط ما من الحركة.
         </span>
         <span>
           k6 بمعدل ثابت 1,700 request في الثانية لمدة 30 ثانية، و Postgres على 2 CPU.

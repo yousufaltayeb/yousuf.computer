@@ -196,15 +196,15 @@ export default async function ThoughtPage({ params }: ThoughtPageProps) {
 
       {relatedPosts.length > 0 && (
         <aside className="mt-16" aria-labelledby="related-thoughts">
-          <h2 id="related-thoughts" className="font-mono text-base mb-6">
-            {isRtl ? "مقالات ذات صلة" : "Related thoughts"}
+          <h2 id="related-thoughts" className="font-mono text-sm text-contrast/70 mb-5">
+            {isRtl ? "مقالات تانية ممكن تعجبك" : "Keep reading"}
           </h2>
           <ul className="space-y-5">
             {relatedPosts.map((related) => (
               <li key={related.slug}>
                 <Link
                   href={`/thoughts/${related.slug}`}
-                  className="block text-xl font-bold"
+                  className="related-link text-xl font-bold"
                   lang={related.lang === "ar" ? "ar" : "en"}
                   dir={related.lang === "ar" ? "rtl" : "ltr"}
                 >
