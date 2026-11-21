@@ -30,6 +30,10 @@ export const siteConfig = {
       href: "https://qabilah.com/profile/yousufaltayeb/posts",
     },
     {
+      label: "YouTube",
+      href: "https://www.youtube.com/@y.altayeb",
+    },
+    {
       label: "Email",
       href: "mailto:contact@yousuf.computer",
     },
